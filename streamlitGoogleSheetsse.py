@@ -26,7 +26,7 @@ if data is not None and not data.empty:
 
     # Plot value vs index
     fig, ax = plt.subplots()
-    ax.plot(data["index"], data["value"], marker="o", linestyle="-", label="Value vs Index edit1")
+    ax.plot(data["index"], data["value"], marker="o", linestyle="-", label="Value vs Index")
     ax.set_xlabel("Index")
     ax.set_ylabel("Value")
     ax.set_title("Value vs Index Plot")
