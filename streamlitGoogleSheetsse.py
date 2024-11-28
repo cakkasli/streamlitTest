@@ -3,7 +3,8 @@ from streamlit_gsheets import GSheetsConnection
 import matplotlib.pyplot as plt
 
 # Google Sheets URL
-url = "https://docs.google.com/spreadsheets/d/1Ettpgs-yXvLTPNFNQtJvEMNUcHf2Pa6saqVU0WFkR7k/edit?gid=1310051949#gid=1310051949"
+#url = "https://docs.google.com/spreadsheets/d/1Ettpgs-yXvLTPNFNQtJvEMNUcHf2Pa6saqVU0WFkR7k/edit?gid=1310051949#gid=1310051949"
+url = "https://drive.google.com/file/d/1-MQjsdPqBiTg2trAzWimGstqQ5vAwFez/view?usp=drive_link"
 
 # Connect to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
