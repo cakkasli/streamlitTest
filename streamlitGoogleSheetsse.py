@@ -2,6 +2,12 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import matplotlib.pyplot as plt
 
+
+# Add a button to clear the cache
+if st.button("Clear Cache"):
+    st.cache_data.clear()
+    st.success("Cache cleared!")
+
 # Google Sheets URL
 #url = "https://docs.google.com/spreadsheets/d/1Ettpgs-yXvLTPNFNQtJvEMNUcHf2Pa6saqVU0WFkR7k/edit?gid=1310051949#gid=1310051949"
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
