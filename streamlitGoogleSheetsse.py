@@ -28,7 +28,7 @@ if data is not None and not data.empty:
     # Ensure columns have correct names
     data.columns = ["index", "value"]
     # Convert the 'value' column to a numeric type
-    data["value"] = data["value"].str.replace(",", ".").astype(float)
+    #data["value"] = data["value"].str.replace(",", ".").astype(float)
 
     # Plot value vs index
     fig, ax = plt.subplots()
