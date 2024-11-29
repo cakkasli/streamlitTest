@@ -22,13 +22,14 @@ data = conn.read(spreadsheet=url, usecols=[0, 1])
 #st.dataframe(data)
 
 
-
 # Check if data is available
 if data is not None and not data.empty:
     # Ensure columns have correct names
     data.columns = ["index", "value"]
     # Convert the 'value' column to a numeric type
-    #data["value"] = data["value"].str.replace(",", ".").astype(float)
+    if data["value"].str.contains(",").any():
+        data["value"] = data["value"].str.replace(",", ".").astype(float)
+
 
     # Plot value vs index
     fig, ax = plt.subplots()
