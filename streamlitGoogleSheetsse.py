@@ -5,14 +5,11 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-# Configure the page
-st.set_page_config(
-    page_title="My App",
-    page_icon=":rocket:",
-    menu_items=None  # Hides the Streamlit menu
-)
+#MainMenu {
+  visibility: hidden;
+}
 
-st.title("Welcome to My App")
+st.title("Welcome to  Nordata")
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
