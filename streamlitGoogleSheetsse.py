@@ -115,7 +115,7 @@ if data is not None and not data.empty:
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
     # Plot value vs index
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))  # 1 row, 2 columns
+    fig, axes = plt.subplots(2, 1, figsize=(6, 12))  # 1 row, 2 columns
 
     # Plot 1: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
