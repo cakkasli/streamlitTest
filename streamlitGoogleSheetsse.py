@@ -29,6 +29,16 @@ if data is not None and not data.empty:
                      "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                      "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
+    
+    # Add a button to download the data as a CSV
+    csv = data.to_csv(index=False)  # Convert DataFrame to CSV
+    st.download_button(
+        label="Download Data as CSV",
+        data=csv,
+        file_name="data.csv",
+        mime="text/csv",
+    )
+    
     # Convert the 'value' column to a numeric type
     #data["value"] = data["value"].str.replace(",", ".").astype(float)
 
