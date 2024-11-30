@@ -41,10 +41,6 @@ def check_password():
 if not check_password():
     st.stop()
 
-# Main Streamlit app starts here
-st.write("Here goes your normal Streamlit app...")
-st.button("Click me")
-
 # Add a button to clear the cache
 if st.button("Clear Cache"):
     st.cache_data.clear()
