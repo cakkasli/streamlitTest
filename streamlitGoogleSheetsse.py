@@ -40,15 +40,13 @@ if data is not None and not data.empty:
     axes[0].plot(data["ID"], data["SeedTemperature"], marker=".", linestyle="-", color="blue", label="SeedTemperature")
     axes[0].set_xlabel("ID")
     axes[0].set_ylabel("SeedTemperature")
-    axes[0].set_title("ID vs SeedTemperature")
-    axes[0].legend()
+    axes[0].set_title("Seed Temperature")
     
     # Plot 2: ID vs ModuleTemperature
     axes[1].plot(data["ID"], data["ModuleTemperature"], marker=".", linestyle="-", color="green", label="ModuleTemperature")
     axes[1].set_xlabel("ID")
     axes[1].set_ylabel("ModuleTemperature")
-    axes[1].set_title("ID vs ModuleTemperature")
-    axes[1].legend()
+    axes[1].set_title("Module Temperature")
 
     # Adjust layout for better spacing
     fig.tight_layout()
