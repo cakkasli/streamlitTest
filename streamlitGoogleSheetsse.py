@@ -47,6 +47,14 @@ if st.button("Clear Cache"):
     st.cache_data.clear()
     st.success("Cache cleared!")
 
+# Log Off Button
+if st.button("Log Off"):
+    # Clear only the login-related session state
+    st.session_state.pop("password_correct", None)  # Remove login state
+    st.session_state.pop("username", None)          # Remove username
+    st.session_state.pop("password", None)          # Remove password
+    st.experimental_rerun()  # Refresh the app to go back to the login page
+
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
 
@@ -73,14 +81,6 @@ if data is not None and not data.empty:
         mime="text/csv",
     )
     
-# Log Off Button
-if st.button("Log Off"):
-    # Clear only the login-related session state
-    st.session_state.pop("password_correct", None)  # Remove login state
-    st.session_state.pop("username", None)          # Remove username
-    st.session_state.pop("password", None)          # Remove password
-    st.experimental_rerun()  # Refresh the app to go back to the login page
-
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
