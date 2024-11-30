@@ -5,25 +5,15 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-# Initialize session state variables
+# Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
-if "logged_off" not in st.session_state:
-    st.session_state["logged_off"] = False
-
-if not st.session_state["password_correct"]:
-    st.title("Please log in")
-    # Display login form or similar here
-else:
-    if st.session_state["logged_off"]:
-        st.title("You have been logged off successfully!")
-        # Do not render any other buttons or UI
-    else:
-        st.title("Welcome to the App!")
-        if st.button("Log Off"):
-            st.session_state["password_correct"] = False
-            st.session_state["logged_off"] = True
-            st.experimental_rerun()
+if "username" not in st.session_state:
+    st.session_state["username"] = None
+if "password" not in st.session_state:
+    st.session_state["password"] = None
+if "logoff" not in st.session_state:
+    st.session_state["logoff"] = False
 
 
 def check_password():
