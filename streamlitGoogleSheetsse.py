@@ -14,17 +14,19 @@ def check_password():
     if not st.session_state["password_correct"]:
         # Prompt user for password
         password = st.text_input("Enter the password:", type="password")
-        login_button = st.button("Login")
-        if login_button:
-            if password == "123456":  # Set your password here
+        if st.button("Login"):
+            if password == "mypassword123":  # Set your password here
                 st.session_state["password_correct"] = True
-                st.experimental_rerun()  # Automatically reload the app
+                st.experimental_set_query_params(authorized="true")  # Set query parameter to indicate success
+                st.experimental_rerun()  # Trigger a rerun safely after setting session state
             else:
                 st.error("Incorrect password.")
-        # If the password is not correct, return False to prevent loading the app
         return False
-    # If the password is correct, return True to load the app
     return True
+
+# Check for query parameters to bypass password input on rerun
+if st.experimental_get_query_params().get("authorized") == ["true"]:
+    st.session_state["password_correct"] = True
 
 # Main app logic
 if check_password():
