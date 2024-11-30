@@ -5,6 +5,14 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 # Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
