@@ -77,29 +77,45 @@ if data is not None and not data.empty:
         mime="text/csv",
     )
     
-    # Convert the 'value' column to a numeric type
-    #data["value"] = data["value"].str.replace(",", ".").astype(float)
+        # Get unique session numbers
+        session_numbers = data["SessionNumber"].unique()
+        colors = cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
-    # Plot value vs index
-    # Assuming 'data' is the DataFrame already loaded
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))  # 1 row, 2 columns
-    
-    # Plot 1: ID vs SeedTemperature
-    axes[0].plot(data["ID"], data["SeedTemperature"], marker=".", linestyle="-", color="blue", label="SeedTemperature")
-    axes[0].set_xlabel("ID")
-    axes[0].set_ylabel("SeedTemperature")
-    axes[0].set_title("Seed Temperature")
-    
-    # Plot 2: ID vs ModuleTemperature
-    axes[1].plot(data["ID"], data["ModuleTemperature"], marker=".", linestyle="-", color="green", label="ModuleTemperature")
-    axes[1].set_xlabel("ID")
-    axes[1].set_ylabel("ModuleTemperature")
-    axes[1].set_title("Module Temperature")
+        # Plot value vs index
+        fig, axes = plt.subplots(1, 2, figsize=(12, 6))  # 1 row, 2 columns
 
-    # Adjust layout for better spacing
-    fig.tight_layout()
+        # Plot 1: ID vs SeedTemperature with session-based colors
+        for session, color in zip(session_numbers, colors):
+            session_data = data[data["SessionNumber"] == session]
+            axes[0].plot(
+                session_data["ID"],
+                session_data["SeedTemperature"],
+                marker=".",
+                linestyle="-",
+                color=color
+            )
+        axes[0].set_xlabel("ID")
+        axes[0].set_ylabel("SeedTemperature")
+        axes[0].set_title("Seed Temperature")
 
-    # Display the plot in Streamlit
-    st.pyplot(fig)
-else:
-    st.warning("No data available to plot.")
+        # Plot 2: ID vs ModuleTemperature with session-based colors
+        for session, color in zip(session_numbers, colors):
+            session_data = data[data["SessionNumber"] == session]
+            axes[1].plot(
+                session_data["ID"],
+                session_data["ModuleTemperature"],
+                marker=".",
+                linestyle="-",
+                color=color
+            )
+        axes[1].set_xlabel("ID")
+        axes[1].set_ylabel("ModuleTemperature")
+        axes[1].set_title("Module Temperature")
+
+        # Adjust layout for better spacing
+        fig.tight_layout()
+
+        # Display the plot in Streamlit
+        st.pyplot(fig)
+    else:
+        st.warning("No data available to plot.")
