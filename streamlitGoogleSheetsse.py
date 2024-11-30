@@ -69,6 +69,7 @@ if st.button("Log Off"):
     # Provide feedback to the user
     st.success("You have been logged off successfully! Redirecting...")
     time.sleep(1)  # Wait 1 second for feedback to be visible
+    st.rerun()  # Rerun to clear the interface
 
     # Stop execution
     st.stop()
