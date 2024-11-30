@@ -72,6 +72,12 @@ if data is not None and not data.empty:
         file_name="data.csv",
         mime="text/csv",
     )
+    
+    # Log Off Button
+    if st.button("Log Off"):
+    st.session_state.clear()  # Clear all session state, including login status
+    st.experimental_rerun()  # Refresh the app to go back to the login page
+
 
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
