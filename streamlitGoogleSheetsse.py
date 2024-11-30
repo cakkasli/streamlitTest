@@ -5,10 +5,6 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-#MainMenu {
-  visibility: hidden;
-}
-
 st.title("Welcome to  Nordata")
 
 # Initialize session state keys
