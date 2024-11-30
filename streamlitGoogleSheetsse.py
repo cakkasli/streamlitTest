@@ -4,6 +4,17 @@ import matplotlib.pyplot as plt
 import hmac
 import numpy as np  # Ensure you import numpy for colors
 
+# Initialize session state keys
+if "password_correct" not in st.session_state:
+    st.session_state["password_correct"] = False
+if "username" not in st.session_state:
+    st.session_state["username"] = None
+if "password" not in st.session_state:
+    st.session_state["password"] = None
+if "logoff" not in st.session_state:
+    st.session_state["logoff"] = False
+
+
 def check_password():
     """Returns `True` if the user had a correct password."""
 
@@ -49,15 +60,14 @@ if st.button("Clear Cache"):
 
 # Log Off Button
 if st.button("Log Off"):
-    # Set a flag to log out and trigger rerun in the next cycle
     st.session_state["logoff"] = True
 
 # Check if logoff flag is set
-if st.session_state.get("logoff", False):
+if st.session_state["logoff"]:
     # Clear login-related session state
     st.session_state["password_correct"] = False
-    st.session_state.pop("username", None)
-    st.session_state.pop("password", None)
+    st.session_state["username"] = None
+    st.session_state["password"] = None
     st.session_state["logoff"] = False  # Reset the logoff flag
     st.experimental_rerun()  # Trigger rerun after resetting state
 
