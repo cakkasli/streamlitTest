@@ -6,11 +6,13 @@ import numpy as np
 
 # Password protection function
 def check_password():
+    # Initialize session state for password
     if "password_correct" not in st.session_state:
-        # Ask for the password
         st.session_state["password_correct"] = False
 
+    # If the password has not been entered yet
     if not st.session_state["password_correct"]:
+        # Prompt user for password
         password = st.text_input("Enter the password:", type="password")
         if st.button("Login"):
             if password == "mypassword123":  # Set your password here
@@ -18,7 +20,9 @@ def check_password():
                 st.success("Access granted!")
             else:
                 st.error("Incorrect password.")
+        # If the password is not correct, return False to prevent loading the app
         return False
+    # If the password is correct, return True to load the app
     return True
 
 # Main app logic
