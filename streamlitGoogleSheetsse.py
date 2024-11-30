@@ -80,4 +80,23 @@ if check_password():
         axes[0].set_title("Seed Temperature")
 
         # Plot 2: ID vs ModuleTemperature with session-based colors
-        for session, color in zip(session_numbers, co
+        for session, color in zip(session_numbers, colors):
+            session_data = data[data["SessionNumber"] == session]
+            axes[1].plot(
+                session_data["ID"],
+                session_data["ModuleTemperature"],
+                marker=".",
+                linestyle="-",
+                color=color
+            )
+        axes[1].set_xlabel("ID")
+        axes[1].set_ylabel("ModuleTemperature")
+        axes[1].set_title("Module Temperature")
+
+        # Adjust layout for better spacing
+        fig.tight_layout()
+
+        # Display the plot in Streamlit
+        st.pyplot(fig)
+    else:
+        st.warning("No data available to plot.")
