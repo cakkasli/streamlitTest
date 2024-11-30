@@ -17,16 +17,13 @@ def check_password():
         if st.button("Login"):
             if password == "mypassword123":  # Set your password here
                 st.session_state["password_correct"] = True
-                st.experimental_set_query_params(authorized="true")  # Set query parameter to indicate success
-                st.experimental_rerun()  # Trigger a rerun safely after setting session state
+                st.success("Access granted!")
             else:
                 st.error("Incorrect password.")
+        # If the password is not correct, return False to prevent loading the app
         return False
+    # If the password is correct, return True to load the app
     return True
-
-# Check for query parameters to bypass password input on rerun
-if st.experimental_get_query_params().get("authorized") == ["true"]:
-    st.session_state["password_correct"] = True
 
 # Main app logic
 if check_password():
@@ -83,23 +80,4 @@ if check_password():
         axes[0].set_title("Seed Temperature")
 
         # Plot 2: ID vs ModuleTemperature with session-based colors
-        for session, color in zip(session_numbers, colors):
-            session_data = data[data["SessionNumber"] == session]
-            axes[1].plot(
-                session_data["ID"],
-                session_data["ModuleTemperature"],
-                marker=".",
-                linestyle="-",
-                color=color
-            )
-        axes[1].set_xlabel("ID")
-        axes[1].set_ylabel("ModuleTemperature")
-        axes[1].set_title("Module Temperature")
-
-        # Adjust layout for better spacing
-        fig.tight_layout()
-
-        # Display the plot in Streamlit
-        st.pyplot(fig)
-    else:
-        st.warning("No data available to plot.")
+        for session, color in zip(session_numbers, co
