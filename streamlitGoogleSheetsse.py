@@ -14,10 +14,10 @@ def check_password():
     if not st.session_state["password_correct"]:
         # Prompt user for password
         password = st.text_input("Enter the password:", type="password")
-        if st.button("Login"):
-            if password == "mypassword123":  # Set your password here
+        login_button = st.button("Login")
+        if login_button:
+            if password == "123456":  # Set your password here
                 st.session_state["password_correct"] = True
-                st.success("Access granted! Reloading...")
                 st.experimental_rerun()  # Automatically reload the app
             else:
                 st.error("Incorrect password.")
