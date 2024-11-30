@@ -13,7 +13,7 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
 
-st.title("Welcome to  Nordata")
+st.title("Welcome to  Nordata1")
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
