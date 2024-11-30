@@ -3,6 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import matplotlib.pyplot as plt
 import hmac
 import numpy as np  # Ensure you import numpy for colors
+import time
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
@@ -58,22 +59,19 @@ if st.button("Clear Cache"):
     st.cache_data.clear()
     st.success("Cache cleared!")
 
-# Log Off Button
 if st.button("Log Off"):
-    st.session_state["logoff"] = True
-
-# Handle logoff logic
-if st.session_state["logoff"]:
-    # Reset session state variables
+    # Reset session state
     st.session_state["password_correct"] = False
     st.session_state["username"] = None
     st.session_state["password"] = None
     st.session_state["logoff"] = False  # Reset the logoff flag
 
-    # Stop the script to naturally rerun and show login form
+    # Provide feedback to the user
+    st.success("You have been logged off successfully! Redirecting...")
+    time.sleep(1)  # Wait 1 second for feedback to be visible
+
+    # Stop execution
     st.stop()
-
-
 
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
