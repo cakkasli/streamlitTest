@@ -4,20 +4,22 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-# Password protection
+# Password protection function
 def check_password():
     if "password_correct" not in st.session_state:
         # Ask for the password
         st.session_state["password_correct"] = False
+
+    if not st.session_state["password_correct"]:
         password = st.text_input("Enter the password:", type="password")
         if st.button("Login"):
-            if password == "123456":  # Replace with your password
+            if password == "mypassword123":  # Set your password here
                 st.session_state["password_correct"] = True
                 st.success("Access granted!")
             else:
                 st.error("Incorrect password.")
-
-    return st.session_state["password_correct"]
+        return False
+    return True
 
 # Main app logic
 if check_password():
