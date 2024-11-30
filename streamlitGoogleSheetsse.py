@@ -5,14 +5,13 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-# Add custom CSS to hide the GitHub icon
-hide_github_icon = """
-#GithubIcon {
-  visibility: hidden;
-}
+# Add custom CSS to hide the Streamlit footer (including the GitHub icon)
+hide_footer_style = """
+<style>
+footer {visibility: hidden;}
+</style>
 """
-st.markdown(hide_github_icon, unsafe_allow_html=True)
-
+st.markdown(hide_footer_style, unsafe_allow_html=True)
 
 st.title("Welcome to  Nordata")
 
