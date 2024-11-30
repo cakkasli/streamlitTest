@@ -13,6 +13,11 @@ hide_github_icon = """
 """
 st.markdown(hide_github_icon, unsafe_allow_html=True)
 
+#MainMenu {
+  visibility: hidden;
+}
+
+
 st.title("Welcome to  Nordata")
 
 # Initialize session state keys
