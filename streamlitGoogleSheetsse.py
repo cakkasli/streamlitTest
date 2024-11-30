@@ -62,14 +62,17 @@ if st.button("Clear Cache"):
 if st.button("Log Off"):
     st.session_state["logoff"] = True
 
-# Check if logoff flag is set
+# Handle logoff logic
 if st.session_state["logoff"]:
-    # Clear login-related session state
+    # Reset session state variables
     st.session_state["password_correct"] = False
     st.session_state["username"] = None
     st.session_state["password"] = None
     st.session_state["logoff"] = False  # Reset the logoff flag
-    st.experimental_rerun()  # Trigger rerun after resetting state
+
+    # Stop the script to naturally rerun and show login form
+    st.stop()
+
 
 
 # Google Sheets URL
