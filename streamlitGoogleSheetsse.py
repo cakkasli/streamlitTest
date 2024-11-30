@@ -49,11 +49,18 @@ if st.button("Clear Cache"):
 
 # Log Off Button
 if st.button("Log Off"):
-    # Safely mark the user as logged out without immediately rerunning
-    st.session_state["password_correct"] = False  # Reset login state
-    st.session_state.pop("username", None)        # Remove username
-    st.session_state.pop("password", None)        # Remove password
-    st.experimental_rerun()  # Trigger a rerun to show the login form
+    # Set a flag to log out and trigger rerun in the next cycle
+    st.session_state["logoff"] = True
+
+# Check if logoff flag is set
+if st.session_state.get("logoff", False):
+    # Clear login-related session state
+    st.session_state["password_correct"] = False
+    st.session_state.pop("username", None)
+    st.session_state.pop("password", None)
+    st.session_state["logoff"] = False  # Reset the logoff flag
+    st.experimental_rerun()  # Trigger rerun after resetting state
+
 
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
