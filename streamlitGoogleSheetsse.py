@@ -50,13 +50,11 @@ if data is not None and not data.empty:
             session_data["SeedTemperature"],
             marker=".",
             linestyle="-",
-            label=f"Session {session}",
             color=color
         )
     axes[0].set_xlabel("ID")
     axes[0].set_ylabel("SeedTemperature")
     axes[0].set_title("Seed Temperature")
-    axes[0].legend()
 
     # Plot 2: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -66,13 +64,11 @@ if data is not None and not data.empty:
             session_data["ModuleTemperature"],
             marker=".",
             linestyle="-",
-            label=f"Session {session}",
             color=color
         )
     axes[1].set_xlabel("ID")
     axes[1].set_ylabel("ModuleTemperature")
     axes[1].set_title("Module Temperature")
-    axes[1].legend()
 
     # Adjust layout for better spacing
     fig.tight_layout()
