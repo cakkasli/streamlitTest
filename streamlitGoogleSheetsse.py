@@ -220,3 +220,6 @@ if data is not None and not data.empty:
 
     # Adjust layout for better spacing
     fig.tight_layout(pad=2.0)  # Add padding between subplots
+
+    # Display the figure in Streamlit
+    st.pyplot(fig)
