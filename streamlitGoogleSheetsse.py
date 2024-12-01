@@ -85,7 +85,7 @@ if data is not None and not data.empty:
             align-items: center; 
             font-family: 'Comic Sans MS', 'Chalkboard', sans-serif; 
             font-size: 2.5em; 
-            color: #5A5D9C;
+            color: #85a3e0;
         ">
             <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
                  alt="NORBLIS Logo" width="40" style="margin-right: 10px;">
