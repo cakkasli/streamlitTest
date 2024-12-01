@@ -56,31 +56,6 @@ if not check_password():
     st.stop()
 
 
-# Add a section at the bottom with buttons placed next to each other
-col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
-
-with col1:
-    if st.button("Clear Cache"):
-        st.cache_data.clear()
-        st.success("Cache cleared!")
-
-with col2:
-    if st.button("Log Off"):
-        # Reset session state
-        st.session_state["password_correct"] = False
-        st.session_state["username"] = None
-        st.session_state["password"] = None
-        st.session_state["logoff"] = False  # Reset the logoff flag
-
-        # Provide feedback to the user
-        st.success("You have been logged off successfully! Redirecting...")
-        time.sleep(1)  # Wait 1 second for feedback to be visible
-        st.rerun()  # Rerun to clear the interface
-
-        # Stop execution
-        st.stop()
-
-
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
 
@@ -101,18 +76,6 @@ if data is not None and not data.empty:
 
     st.title("Nordata for  SN")
     
-    with col3:
-        # Add a button to download the data as a CSV
-        if data is not None and not data.empty:  # Ensure there's data to download
-            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
-            st.download_button(
-                label="Download Data as CSV",
-                data=csv,
-                file_name="data.csv",
-                mime="text/csv",
-            )
-        else:
-            st.warning("No data available to download.")
     
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
