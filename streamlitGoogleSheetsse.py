@@ -76,38 +76,29 @@ if data is not None and not data.empty:
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
 
-    # Add the icon to the top-right corner of the page with fullscreen functionality
+# Add the rotating icon to the top-right corner of the page
     st.markdown(
         """
         <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
             .top-right-icon {
                 position: absolute;
                 top: 10px;
                 right: 10px;
                 z-index: 1000;
-                cursor: pointer; /* Change cursor to pointer for clickable icon */
+                animation: spin 5s linear infinite; /* Rotate every 5 seconds */
             }
         </style>
-        <div class="top-right-icon" onclick="toggleFullscreen()">
+        <div class="top-right-icon">
             <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
                  alt="NORBLIS Logo" width="50">
         </div>
-        <script>
-            function toggleFullscreen() {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen();
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    }
-                }
-            }
-        </script>
         """,
         unsafe_allow_html=True,
     )
-
-    
     
     
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
