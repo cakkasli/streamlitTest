@@ -56,6 +56,25 @@ if not check_password():
     st.stop()
 
 
+# Add the icon to the top-right corner of the page
+st.markdown(
+    """
+    <style>
+        .top-right-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+    </style>
+    <div class="top-right-icon">
+        <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
+             alt="NORBLIS Logo" width="50">
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
 
