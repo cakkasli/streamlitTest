@@ -120,7 +120,7 @@ if data is not None and not data.empty:
             color: #85a3e0;
             text-align: left;
         ">
-            Log Data SN {serial_number}
+            Serial No: {serial_number}
         </div>
         """,
         unsafe_allow_html=True,
