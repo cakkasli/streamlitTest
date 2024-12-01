@@ -29,18 +29,7 @@ with col2:
         # Stop execution
         st.stop()
 
-with col3:
-    # Add a button to download the data as a CSV
-    if data is not None and not data.empty:  # Ensure there's data to download
-        csv = data.to_csv(index=False)  # Convert DataFrame to CSV
-        st.download_button(
-            label="Download Data as CSV",
-            data=csv,
-            file_name="data.csv",
-            mime="text/csv",
-        )
-    else:
-        st.warning("No data available to download.")
+
 
 
 # Initialize session state keys
@@ -114,6 +103,18 @@ if data is not None and not data.empty:
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
        
+    with col3:
+        # Add a button to download the data as a CSV
+        if data is not None and not data.empty:  # Ensure there's data to download
+            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
+            st.download_button(
+                label="Download Data as CSV",
+                data=csv,
+                file_name="data.csv",
+                mime="text/csv",
+            )
+        else:
+            st.warning("No data available to download.")
     
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
