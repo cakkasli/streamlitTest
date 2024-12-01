@@ -157,6 +157,43 @@ if data is not None and not data.empty:
     axes[1, 0].set_xlabel("ID")
     axes[1, 0].set_ylabel("Seed Temperature [ °C]")
 
+        # Create an additional axis for the session ruler above the Module Temperature plot
+    fig = plt.figure(figsize=(12, 10))
+    gs = fig.add_gridspec(3, 2, height_ratios=[0.3, 1, 1])  # Add extra row for ruler
+    
+    # Define axes for ruler and Module Temperature plot
+    ax_ruler = fig.add_subplot(gs[0, 0])  # Ruler at the top
+    ax_module_temp = fig.add_subplot(gs[1, 0])  # Module Temperature plot
+    
+    # --- RULER ---
+    # Draw session tick marks and labels on the ruler
+    session_bounds = []  # Store (start, end) indices for each session
+    for session in session_numbers:
+        session_data = data[data["SessionNumber"] == session]
+        start_index = session_data["ID"].iloc[0]
+        end_index = session_data["ID"].iloc[-1]
+        session_bounds.append((start_index, end_index))
+        ax_ruler.plot(
+            [start_index, end_index],
+            [0.5, 0.5],  # Fixed y position for the bar
+            color=colors[np.where(session_numbers == session)[0][0]],
+            linewidth=8,
+            solid_capstyle="butt",
+        )
+        ax_ruler.text(
+            (start_index + end_index) / 2,
+            0.6,  # Slightly above the bar
+            f"{session}",
+            fontsize=10,
+            fontweight="bold",
+            color="black",
+            ha="center",
+        )
+    
+    ax_ruler.set_xlim(data["ID"].min(), data["ID"].max())
+    ax_ruler.set_ylim(0, 1)
+    ax_ruler.axis("off")  # Hide axis for a cleaner look
+
     # Plot 2: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
@@ -199,42 +236,7 @@ if data is not None and not data.empty:
     # Display the plots in Streamlit
     st.pyplot(fig)
 
-    # Create an additional axis for the session ruler above the Module Temperature plot
-    fig = plt.figure(figsize=(12, 10))
-    gs = fig.add_gridspec(3, 2, height_ratios=[0.3, 1, 1])  # Add extra row for ruler
-    
-    # Define axes for ruler and Module Temperature plot
-    ax_ruler = fig.add_subplot(gs[0, 0])  # Ruler at the top
-    ax_module_temp = fig.add_subplot(gs[1, 0])  # Module Temperature plot
-    
-    # --- RULER ---
-    # Draw session tick marks and labels on the ruler
-    session_bounds = []  # Store (start, end) indices for each session
-    for session in session_numbers:
-        session_data = data[data["SessionNumber"] == session]
-        start_index = session_data["ID"].iloc[0]
-        end_index = session_data["ID"].iloc[-1]
-        session_bounds.append((start_index, end_index))
-        ax_ruler.plot(
-            [start_index, end_index],
-            [0.5, 0.5],  # Fixed y position for the bar
-            color=colors[np.where(session_numbers == session)[0][0]],
-            linewidth=8,
-            solid_capstyle="butt",
-        )
-        ax_ruler.text(
-            (start_index + end_index) / 2,
-            0.6,  # Slightly above the bar
-            f"{session}",
-            fontsize=10,
-            fontweight="bold",
-            color="black",
-            ha="center",
-        )
-    
-    ax_ruler.set_xlim(data["ID"].min(), data["ID"].max())
-    ax_ruler.set_ylim(0, 1)
-    ax_ruler.axis("off")  # Hide axis for a cleaner look
+
 
 
 
