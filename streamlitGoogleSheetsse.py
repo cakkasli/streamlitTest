@@ -77,19 +77,16 @@ if data is not None and not data.empty:
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     str_serial_num = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
-    # Add title with your custom icon
+    # Add the title
     st.markdown(
         f"""
         <div style="
-            display: flex; 
-            align-items: center; 
             font-family: 'Courier Sans', monospace; 
             font-size: 2.5em; 
-            color: #264d99;
+            color: #85a3e0;
+            text-align: left;
         ">
-            <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
-                 alt="NORBLIS Logo" width="40" style="margin-right: 10px;">
-            <span>Laser long-run info <br> SN: {str_serial_num}</span>
+            Laser Data Analysis
         </div>
         """,
         unsafe_allow_html=True,
