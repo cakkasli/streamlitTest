@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
+import matplotlib.patches as patches
 
 
 # Initialize session state keys
