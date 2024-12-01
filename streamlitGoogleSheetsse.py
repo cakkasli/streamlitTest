@@ -168,7 +168,7 @@ if data is not None and not data.empty:
             color=color
         )
     axes[1, 0].set_xlabel("ID")
-    axes[1, 0].set_ylabel("Seed Temperature [ °C]")
+    axes[1, 0].set_ylabel("Seed Temperature [°C]")
 
     # Plot 3: ID vs Pump1Current with session-based colors
     for session, color in zip(session_numbers, colors):
