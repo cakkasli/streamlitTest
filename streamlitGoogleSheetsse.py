@@ -146,11 +146,10 @@ if data is not None and not data.empty:
     # Turn off the x-axis and y-axis for the ruler
     ax_ruler.axis("off")
 
-    # Calculate the range of session numbers to include in the rectangle
+    # Add session numbers and ticks inside the rectangle
     filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
     session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] for session in filtered_sessions]
 
-    # Add session numbers and ticks inside the rectangle
     for session, start_index in zip(filtered_sessions, session_start_indices):
         ax_ruler.text(
             start_index,
@@ -176,7 +175,6 @@ if data is not None and not data.empty:
         ax_module_temp.plot(
             session_data["ID"], 
             session_data["ModuleTemperature"], 
-            label=f"Session {session}", 
             color=color
         )
     ax_module_temp.set_xlabel("ID")
@@ -188,7 +186,6 @@ if data is not None and not data.empty:
         ax_seed_temp.plot(
             session_data["ID"], 
             session_data["SeedTemperature"], 
-            label=f"Session {session}", 
             color=color
         )
     ax_seed_temp.set_xlabel("ID")
@@ -200,7 +197,6 @@ if data is not None and not data.empty:
         ax_pump1_current.plot(
             session_data["ID"], 
             session_data["Pump1Current"], 
-            label=f"Session {session}", 
             color=color
         )
     ax_pump1_current.set_xlabel("ID")
@@ -212,7 +208,6 @@ if data is not None and not data.empty:
         ax_pump2_current.plot(
             session_data["ID"], 
             session_data["Pump2Current"], 
-            label=f"Session {session}", 
             color=color
         )
     ax_pump2_current.set_xlabel("ID")
@@ -223,3 +218,37 @@ if data is not None and not data.empty:
 
     # Display the figure in Streamlit
     st.pyplot(fig)
+
+    # Add buttons after the plots
+    col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
+
+    with col1:
+        if st.button("Clear Cache"):
+            st.cache_data.clear()
+            st.success("Cache cleared!")
+
+    with col2:
+        if st.button("Log Off"):
+            # Reset session state
+            st.session_state["password_correct"] = False
+            st.session_state["username"] = None
+            st.session_state["password"] = None
+            st.session_state["logoff"] = False  # Reset the logoff flag
+
+            # Provide feedback to the user
+            st.success("You have been logged off successfully! Redirecting...")
+            time.sleep(1)  # Wait 1 second for feedback to be visible
+            st.rerun()  # Rerun to clear the interface
+
+    with col3:
+        # Add a button to download the data as a CSV
+        if data is not None and not data.empty:  # Ensure there's data to download
+            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
+            st.download_button(
+                label="Download Data as CSV",
+                data=csv,
+                file_name="data.csv",
+                mime="text/csv",
+            )
+        else:
+            st.warning("No data available to download.")
