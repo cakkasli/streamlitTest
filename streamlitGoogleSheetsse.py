@@ -243,3 +243,71 @@ if data is not None and not data.empty:
             st.warning("No data available to download.")
 else:
     st.warning("No data available to plot.")
+
+
+# Add the ruler after the buttons
+st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)  # Spacer after buttons
+
+# Create the figure for the ruler and the main plots
+fig = plt.figure(figsize=(12, 10))
+gs = fig.add_gridspec(2, 1, height_ratios=[0.2, 0.8])  # Top row for the ruler
+
+# Ruler Axis
+ax_ruler = fig.add_subplot(gs[0, 0])  # Add a single subplot for the ruler
+ax_ruler.axis("off")  # Turn off axis for a clean ruler look
+
+# Add the rectangle background for the ruler
+rect = patches.Rectangle(
+    (0, 0.4),  # Position in axis-relative coordinates
+    1,  # Full width
+    0.2,  # Height
+    transform=ax_ruler.transAxes,
+    linewidth=1,
+    edgecolor="black",
+    facecolor="white",
+    alpha=0.5,
+)
+ax_ruler.add_patch(rect)
+
+# Add session ticks
+for session in session_numbers:
+    session_data = data[data["SessionNumber"] == session]
+    start_index = session_data["ID"].iloc[0]
+    end_index = session_data["ID"].iloc[-1]
+    session_midpoint = (start_index + end_index) / 2
+
+    # Add tick marks
+    ax_ruler.plot(
+        [start_index, start_index], [0.4, 0.6], color="black", lw=1, transform=ax_ruler.transData
+    )  # Start tick
+    ax_ruler.text(
+        session_midpoint,
+        0.5,
+        str(session),
+        fontsize=10,
+        fontweight="bold",
+        ha="center",
+        va="center",
+        transform=ax_ruler.transData,
+    )
+
+# Main Plots (Placeholder for actual plots)
+ax_main = fig.add_subplot(gs[1, 0])  # Main plot area below the ruler
+for session, color in zip(session_numbers, colors):
+    session_data = data[data["SessionNumber"] == session]
+    ax_main.plot(
+        session_data["ID"],
+        session_data["ModuleTemperature"],
+        label=f"Session {session}",
+        color=color,
+    )
+ax_main.set_xlabel("ID")
+ax_main.set_ylabel("Module Temperature")
+ax_main.legend()
+
+# Adjust layout
+fig.tight_layout(h_pad=2.0)
+
+# Display the figure in Streamlit
+st.pyplot(fig)
+
