@@ -83,8 +83,8 @@ if data is not None and not data.empty:
         <h1 style="
             font-family: 'Comic Sans MS', 'Chalkboard', sans-serif;
             font-size: 2.5em;
-            color: turquoise;
-            text-align: center;
+            color: #5A5D9C; /* Light Navy Blue */
+            text-align: left;
         ">
             Nordata for {str_serial_num}
         </h1>
@@ -92,8 +92,6 @@ if data is not None and not data.empty:
         unsafe_allow_html=True,
     )
 
-    # Set the dynamic title
-    st.title(f"Nordata for {str_serial_num}")
     
     
     # Get unique session numbers
