@@ -13,8 +13,6 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
 
-
-
 # Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
@@ -101,6 +99,16 @@ if data is not None and not data.empty:
                     "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
+    
+    # Extract the serial number for the title
+    unique_serial_numbers = data["SerialNumber"].unique()
+    serial_numbers_str = ", ".join(unique_serial_numbers)  # Convert to a comma-separated string
+
+    # Update the title with the serial numbers
+    st.title(f"Nordata for {serial_numbers_str}")
+else:
+    st.title("Nordata for - No Serial Numbers Available")
+    
     # Add a button to download the data as a CSV
     csv = data.to_csv(index=False)  # Convert DataFrame to CSV
     st.download_button(
@@ -115,7 +123,7 @@ if data is not None and not data.empty:
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
     # Plot value vs index
-    fig, axes = plt.subplots(2, 1, figsize=(6, 12))  # 1 row, 2 columns
+    fig, axes = plt.subplots(1, 2, figsize=(16, 4))  # 1 row, 2 columns
 
     # Plot 1: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
