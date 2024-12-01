@@ -62,7 +62,7 @@ st.markdown(
     <style>
         .top-right-icon {
             position: absolute;
-            top: 20px;
+            top: 18px;
             right: 10px;
             z-index: 1000;
         }
