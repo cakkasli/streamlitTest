@@ -86,7 +86,7 @@ if data is not None and not data.empty:
             color: #5A5D9C; /* Light Navy Blue */
             text-align: left;
         ">
-            Nordata for {str_serial_num}
+            Nordata for SN: {str_serial_num}
         </h1>
         """,
         unsafe_allow_html=True,
