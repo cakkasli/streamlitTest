@@ -74,7 +74,11 @@ if data is not None and not data.empty:
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
 
-    st.title("Nordata for  SN")
+    # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
+    str_serial_num = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
+
+    # Set the dynamic title
+    st.title(f"Nordata for {str_serial_num}")
     
     
     # Get unique session numbers
