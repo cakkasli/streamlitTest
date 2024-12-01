@@ -94,7 +94,7 @@ if data is not None and not data.empty:
 
 
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
-    str_serial_num = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
+    serial_number = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
     # Add the title
     st.markdown(
