@@ -106,8 +106,7 @@ if data is not None and not data.empty:
 
     # Update the title with the serial numbers
     st.title(f"Nordata for {serial_numbers_str}")
-else:
-    st.title("Nordata for - No Serial Numbers Available")
+
     
     # Add a button to download the data as a CSV
     csv = data.to_csv(index=False)  # Convert DataFrame to CSV
