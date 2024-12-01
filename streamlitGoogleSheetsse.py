@@ -136,7 +136,7 @@ if data is not None and not data.empty:
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
     # Create a 2x2 grid of plots
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))  # 2 rows, 2 columns
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))  # 2 rows, 2 columns
 
     # Plot 1: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -191,7 +191,7 @@ if data is not None and not data.empty:
     axes[1, 1].set_ylabel("Current")
 
     # Adjust layout for better spacing
-    fig.tight_layout()
+    fig.tight_layout(pad=2.0)  # Add padding between subplots
 
     # Display the plots in Streamlit
     st.pyplot(fig)
