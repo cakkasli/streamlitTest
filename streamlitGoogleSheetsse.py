@@ -114,20 +114,40 @@ if data is not None and not data.empty:
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     serial_number = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
-    # Add the title
-    st.markdown(
-        f"""
-        <div style="
-            font-family: 'Courier Sans', monospace; 
-            font-size: 2.5em; 
-            color: #85a3e0;
-            text-align: left;
-        ">
-            Serial No: {serial_number}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    # Use columns to layout the title and the rotating icon side by side
+    col_title, col_icon = st.columns([8, 1])  # Adjust proportions as needed
+    
+    # Title in the first column
+    with col_title:
+        st.markdown(
+            f"""
+            <div style="font-family: 'Courier Sans', monospace; font-size: 2.5em; color: #85a3e0; text-align: left;">
+                Serial No: {serial_number}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    
+    # Rotating icon in the second column
+    with col_icon:
+        st.markdown(
+            """
+            <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                .rotating-icon {
+                    animation: spin 5s linear infinite; /* Rotate every 5 seconds */
+                }
+            </style>
+            <div class="rotating-icon">
+                <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
+                     alt="NORBLIS Logo" width="40">
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
     # Add space between the title and the plot
