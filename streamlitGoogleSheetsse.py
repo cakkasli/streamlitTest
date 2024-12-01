@@ -146,28 +146,31 @@ if data is not None and not data.empty:
     # Turn off the x-axis and y-axis for the ruler
     ax_ruler.axis("off")
 
-    # Add session numbers and ticks inside the rectangle
+    # Add session numbers and shorter ticks
     filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
     session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] for session in filtered_sessions]
-
+    
     for session, start_index in zip(filtered_sessions, session_start_indices):
+        # Add session number with smaller font size
         ax_ruler.text(
             start_index,
-            0.5,  # Position the session number inside the rectangle
+            0.6,  # Position slightly above the tick
             str(session),
-            fontsize=10,
+            fontsize=8,  # Smaller font size
             fontweight="bold",
             ha="center",
             va="center",
             transform=ax_ruler.transData,
         )
+        # Add shorter tick marks directly under the session number
         ax_ruler.plot(
             [start_index, start_index],
-            [0.45, 0.47],  # Tick mark just below the session number
+            [0.5, 0.55],  # Shorter tick length
             color="black",
             lw=1,
             transform=ax_ruler.transData,
         )
+
 
     # Plot 1: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
