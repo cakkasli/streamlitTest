@@ -85,11 +85,11 @@ if data is not None and not data.empty:
             align-items: center; 
             font-family: 'Courier Sans', monospace; 
             font-size: 2.5em; 
-            color: #85a3e0;
+            color: #264d99;
         ">
             <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
                  alt="NORBLIS Logo" width="40" style="margin-right: 10px;">
-            <span>Laser {str_serial_num}</span>
+            <span>Laser long-run info SN: {str_serial_num}</span>
         </div>
         """,
         unsafe_allow_html=True,
