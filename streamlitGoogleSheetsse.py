@@ -5,13 +5,43 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-# Add custom CSS to hide the Streamlit footer (including the GitHub icon)
-hide_footer_style = """
-<style>
-footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_footer_style, unsafe_allow_html=True)
+# Add a section at the bottom with buttons placed next to each other
+col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
+
+with col1:
+    if st.button("Clear Cache"):
+        st.cache_data.clear()
+        st.success("Cache cleared!")
+
+with col2:
+    if st.button("Log Off"):
+        # Reset session state
+        st.session_state["password_correct"] = False
+        st.session_state["username"] = None
+        st.session_state["password"] = None
+        st.session_state["logoff"] = False  # Reset the logoff flag
+
+        # Provide feedback to the user
+        st.success("You have been logged off successfully! Redirecting...")
+        time.sleep(1)  # Wait 1 second for feedback to be visible
+        st.rerun()  # Rerun to clear the interface
+
+        # Stop execution
+        st.stop()
+
+with col3:
+    # Add a button to download the data as a CSV
+    if data is not None and not data.empty:  # Ensure there's data to download
+        csv = data.to_csv(index=False)  # Convert DataFrame to CSV
+        st.download_button(
+            label="Download Data as CSV",
+            data=csv,
+            file_name="data.csv",
+            mime="text/csv",
+        )
+    else:
+        st.warning("No data available to download.")
+
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
@@ -62,25 +92,9 @@ def check_password():
 if not check_password():
     st.stop()
 
-# Add a button to clear the cache
-if st.button("Clear Cache"):
-    st.cache_data.clear()
-    st.success("Cache cleared!")
 
-if st.button("Log Off"):
-    # Reset session state
-    st.session_state["password_correct"] = False
-    st.session_state["username"] = None
-    st.session_state["password"] = None
-    st.session_state["logoff"] = False  # Reset the logoff flag
 
-    # Provide feedback to the user
-    st.success("You have been logged off successfully! Redirecting...")
-    time.sleep(1)  # Wait 1 second for feedback to be visible
-    st.rerun()  # Rerun to clear the interface
 
-    # Stop execution
-    st.stop()
 
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
@@ -100,14 +114,6 @@ if data is not None and not data.empty:
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
        
-    # Add a button to download the data as a CSV
-    csv = data.to_csv(index=False)  # Convert DataFrame to CSV
-    st.download_button(
-        label="Download Data as CSV",
-        data=csv,
-        file_name="data.csv",
-        mime="text/csv",
-    )
     
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
