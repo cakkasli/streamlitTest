@@ -249,6 +249,9 @@ else:
 
 
 
+
+
+
 # Add the ruler after the buttons
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)  # Spacer after buttons
 
@@ -273,15 +276,16 @@ rect = patches.Rectangle(
 )
 ax_ruler.add_patch(rect)
 
-# Add session ticks at the start of each session
-for session in session_numbers:
+# Add ticks for every 6th session start
+filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
+for session in filtered_sessions:
     session_data = data[data["SessionNumber"] == session]
     start_index = session_data["ID"].iloc[0]  # Start of the session
 
-    # Add tick marks and labels for each session start
+    # Add tick marks crossing only the bottom part of the rectangle
     ax_ruler.plot(
         [start_index, start_index],
-        [0.4, 0.6],  # Tick position
+        [0.4, 0.42],  # Tick crosses only the bottom
         color="black",
         lw=1,
         transform=ax_ruler.transData,
@@ -304,12 +308,10 @@ for session, color in zip(session_numbers, colors):
     ax_main.plot(
         session_data["ID"],
         session_data["ModuleTemperature"],
-        label=f"Session {session}",
         color=color,
     )
 ax_main.set_xlabel("ID")
 ax_main.set_ylabel("Module Temperature")
-ax_main.legend()
 
 # Adjust layout
 fig.tight_layout(h_pad=2.0)
