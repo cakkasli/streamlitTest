@@ -265,7 +265,7 @@ ax_ruler.axis("off")  # Turn off axis for a clean ruler look
 
 # Add the rectangle background for the ruler
 rect = patches.Rectangle(
-    (0, 0.4),  # Position in axis-relative coordinates
+    (0, 0),  # Position in axis-relative coordinates
     1,  # Full width
     0.2,  # Height
     transform=ax_ruler.transAxes,
@@ -282,23 +282,23 @@ for session in filtered_sessions:
     session_data = data[data["SessionNumber"] == session]
     start_index = session_data["ID"].iloc[0]  # Start of the session
 
-    # Add tick marks crossing slightly below the rectangle
+    # Add tick marks crossing the bottom edge of the rectangle
     ax_ruler.plot(
         [start_index, start_index],
-        [0.4, 0.39],  # Tick starts at bottom edge of rectangle and crosses below
+        [-0.02, 0],  # Adjusted to cross the bottom edge of the rectangle
         color="black",
         lw=1,
-        transform=ax_ruler.transData,
+        transform=ax_ruler.get_xaxis_transform(),
     )
     ax_ruler.text(
         start_index,
-        0.5,  # Position of the session number text
+        0.1,  # Position of the session number text within the rectangle
         str(session),
         fontsize=10,
         fontweight="bold",
         ha="center",
         va="center",
-        transform=ax_ruler.transData,
+        transform=ax_ruler.get_xaxis_transform(),
     )
 
 # Main Plots (Placeholder for actual plots)
@@ -318,4 +318,5 @@ fig.tight_layout(h_pad=2.0)
 
 # Display the figure in Streamlit
 st.pyplot(fig)
+
 
