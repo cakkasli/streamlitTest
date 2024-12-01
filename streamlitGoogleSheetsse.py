@@ -102,6 +102,17 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 # Fetch data from Google Sheets
 data = conn.read(spreadsheet=url, usecols=list(range(0, 15)))
 
+# Extract the serial number for the title
+if data is not None and not data.empty:
+    # Assuming the serial number is in the "SerialNumber" column
+    unique_serial_numbers = data["SerialNumber"].unique()
+    serial_numbers_str = ", ".join(unique_serial_numbers)  # Convert to a comma-separated string
+
+    # Update the title with the serial numbers
+    st.title(f"Nordata for {serial_numbers_str}")
+else:
+    st.title("Nordata for - No Serial Numbers Available")
+
 # Check if data is available
 if data is not None and not data.empty:
     # Ensure columns have correct names
