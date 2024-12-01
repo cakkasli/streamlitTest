@@ -99,15 +99,7 @@ if data is not None and not data.empty:
                     "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
-    
-    # Extract the serial number for the title
-    unique_serial_numbers = data["SerialNumber"].unique()
-    serial_numbers_str = ", ".join(unique_serial_numbers)  # Convert to a comma-separated string
-
-    # Update the title with the serial numbers
-    st.title(f"Nordata for {serial_numbers_str}")
-
-    
+       
     # Add a button to download the data as a CSV
     csv = data.to_csv(index=False)  # Convert DataFrame to CSV
     st.download_button(
