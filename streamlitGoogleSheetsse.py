@@ -125,42 +125,37 @@ if data is not None and not data.empty:
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
     
+    # Create a 2x2 grid of plots
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))  # 2 rows, 2 columns
 
-    # Plot value vs index
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))  # 1 row, 2 columns
+    # Plot 1: ID vs SeedTemperature
+    axes[0, 0].plot(data["ID"], data["SeedTemperature"], marker=".", linestyle="-")
+    axes[0, 0].set_title("Seed Temperature")
+    axes[0, 0].set_xlabel("ID")
+    axes[0, 0].set_ylabel("Temperature")
 
-    # Plot 1: ID vs SeedTemperature with session-based colors
-    for session, color in zip(session_numbers, colors):
-        session_data = data[data["SessionNumber"] == session]
-        axes[0].plot(
-            session_data["ID"],
-            session_data["SeedTemperature"],
-            marker=".",
-            linestyle="-",
-            color=color
-        )
-    axes[0].set_xlabel("ID")
-    axes[0].set_ylabel("SeedTemperature")
-    axes[0].set_title("Seed Temperature")
+    # Plot 2: ID vs ModuleTemperature
+    axes[0, 1].plot(data["ID"], data["ModuleTemperature"], marker=".", linestyle="-")
+    axes[0, 1].set_title("Module Temperature")
+    axes[0, 1].set_xlabel("ID")
+    axes[0, 1].set_ylabel("Temperature")
 
-    # Plot 2: ID vs ModuleTemperature with session-based colors
-    for session, color in zip(session_numbers, colors):
-        session_data = data[data["SessionNumber"] == session]
-        axes[1].plot(
-            session_data["ID"],
-            session_data["ModuleTemperature"],
-            marker=".",
-            linestyle="-",
-            color=color
-        )
-    axes[1].set_xlabel("ID")
-    axes[1].set_ylabel("ModuleTemperature")
-    axes[1].set_title("Module Temperature")
+    # Plot 3: ID vs Pump1Current
+    axes[1, 0].plot(data["ID"], data["Pump1Current"], marker=".", linestyle="-")
+    axes[1, 0].set_title("Pump1 Current")
+    axes[1, 0].set_xlabel("ID")
+    axes[1, 0].set_ylabel("Current")
+
+    # Plot 4: ID vs Pump2Current
+    axes[1, 1].plot(data["ID"], data["Pump2Current"], marker=".", linestyle="-")
+    axes[1, 1].set_title("Pump2 Current")
+    axes[1, 1].set_xlabel("ID")
+    axes[1, 1].set_ylabel("Current")
 
     # Adjust layout for better spacing
     fig.tight_layout()
 
-    # Display the plot in Streamlit
+    # Display the plots in Streamlit
     st.pyplot(fig)
 
     # Add buttons after the plot
