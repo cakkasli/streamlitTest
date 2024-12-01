@@ -250,7 +250,6 @@ else:
 
 
 
-
 # Add the ruler after the buttons
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)  # Spacer after buttons
 
@@ -270,11 +269,11 @@ session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] fo
 rect_start = session_start_indices[0]  # Start at the first session's index
 rect_end = session_start_indices[-1]   # End at the last session's index
 
-# Add the rectangle background around the selected session numbers
+# Adjust rectangle height and align with the left edge of the plot
 rect = patches.Rectangle(
-    (rect_start, 0.4),  # Position in data coordinates (start index, bottom edge of rectangle)
+    (rect_start, 0.45),  # Start at the first session's ID, bottom of rectangle raised slightly
     rect_end - rect_start,  # Width of the rectangle
-    0.2,  # Height of the rectangle
+    0.1,  # Reduced height of the rectangle
     linewidth=1,
     edgecolor="black",
     facecolor="white",
@@ -300,7 +299,7 @@ for session, start_index in zip(filtered_sessions, session_start_indices):
     # Add tick mark directly under the session number
     ax_ruler.plot(
         [start_index, start_index],
-        [0.4, 0.42],  # Tick mark just below the session number
+        [0.45, 0.47],  # Tick mark just below the session number
         color="black",
         lw=1,
         transform=ax_ruler.transData,
@@ -320,6 +319,10 @@ ax_main.set_ylabel("Module Temperature")
 
 # Adjust layout
 fig.tight_layout(h_pad=2.0)
+
+# Display the figure in Streamlit
+st.pyplot(fig)
+
 
 # Display the figure in Streamlit
 st.pyplot(fig)
