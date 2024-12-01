@@ -135,6 +135,9 @@ if data is not None and not data.empty:
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
+    # Set the Streamlit page layout to wide
+    st.set_page_config(layout="wide")
+
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))  # 2 rows, 2 columns
 
