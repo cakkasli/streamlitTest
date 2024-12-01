@@ -5,30 +5,6 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 
-# Add a section at the bottom with buttons placed next to each other
-col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
-
-with col1:
-    if st.button("Clear Cache"):
-        st.cache_data.clear()
-        st.success("Cache cleared!")
-
-with col2:
-    if st.button("Log Off"):
-        # Reset session state
-        st.session_state["password_correct"] = False
-        st.session_state["username"] = None
-        st.session_state["password"] = None
-        st.session_state["logoff"] = False  # Reset the logoff flag
-
-        # Provide feedback to the user
-        st.success("You have been logged off successfully! Redirecting...")
-        time.sleep(1)  # Wait 1 second for feedback to be visible
-        st.rerun()  # Rerun to clear the interface
-
-        # Stop execution
-        st.stop()
-
 
 
 
@@ -82,7 +58,29 @@ if not check_password():
     st.stop()
 
 
+# Add a section at the bottom with buttons placed next to each other
+col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
 
+with col1:
+    if st.button("Clear Cache"):
+        st.cache_data.clear()
+        st.success("Cache cleared!")
+
+with col2:
+    if st.button("Log Off"):
+        # Reset session state
+        st.session_state["password_correct"] = False
+        st.session_state["username"] = None
+        st.session_state["password"] = None
+        st.session_state["logoff"] = False  # Reset the logoff flag
+
+        # Provide feedback to the user
+        st.success("You have been logged off successfully! Redirecting...")
+        time.sleep(1)  # Wait 1 second for feedback to be visible
+        st.rerun()  # Rerun to clear the interface
+
+        # Stop execution
+        st.stop()
 
 
 # Google Sheets URL
