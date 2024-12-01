@@ -141,7 +141,6 @@ if data is not None and not data.empty:
     axes[0, 0].set_title("Seed Temperature")
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Temperature")
-    axes[0, 0].legend()
 
     # Plot 2: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -155,7 +154,6 @@ if data is not None and not data.empty:
     axes[0, 1].set_title("Module Temperature")
     axes[0, 1].set_xlabel("ID")
     axes[0, 1].set_ylabel("Temperature")
-    axes[0, 1].legend()
 
     # Plot 3: ID vs Pump1Current with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -169,7 +167,6 @@ if data is not None and not data.empty:
     axes[1, 0].set_title("Pump1 Current")
     axes[1, 0].set_xlabel("ID")
     axes[1, 0].set_ylabel("Current")
-    axes[1, 0].legend()
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -183,7 +180,6 @@ if data is not None and not data.empty:
     axes[1, 1].set_title("Pump2 Current")
     axes[1, 1].set_xlabel("ID")
     axes[1, 1].set_ylabel("Current")
-    axes[1, 1].legend()
 
     # Adjust layout for better spacing
     fig.tight_layout()
