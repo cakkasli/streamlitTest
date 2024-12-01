@@ -273,30 +273,29 @@ rect = patches.Rectangle(
 )
 ax_ruler.add_patch(rect)
 
-# Add session ticks for every 6th session (start only)
+# Add session ticks at the start of each session
 for session in session_numbers:
     session_data = data[data["SessionNumber"] == session]
     start_index = session_data["ID"].iloc[0]  # Start of the session
 
-    if session % 6 == 0 or session == session_numbers[-1]:  # Every 6th session or the last session
-        # Add tick marks
-        ax_ruler.plot(
-            [start_index, start_index],
-            [0.4, 0.6],  # Tick position
-            color="black",
-            lw=1,
-            transform=ax_ruler.transData,
-        )
-        ax_ruler.text(
-            start_index,
-            0.5,  # Position of the session number text
-            str(session),
-            fontsize=10,
-            fontweight="bold",
-            ha="center",
-            va="center",
-            transform=ax_ruler.transData,
-        )
+    # Add tick marks and labels for each session start
+    ax_ruler.plot(
+        [start_index, start_index],
+        [0.4, 0.6],  # Tick position
+        color="black",
+        lw=1,
+        transform=ax_ruler.transData,
+    )
+    ax_ruler.text(
+        start_index,
+        0.5,  # Position of the session number text
+        str(session),
+        fontsize=10,
+        fontweight="bold",
+        ha="center",
+        va="center",
+        transform=ax_ruler.transData,
+    )
 
 # Main Plots (Placeholder for actual plots)
 ax_main = fig.add_subplot(gs[1, 0])  # Main plot area below the ruler
