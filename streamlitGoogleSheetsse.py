@@ -146,30 +146,23 @@ if data is not None and not data.empty:
     # Turn off the x-axis and y-axis for the ruler
     ax_ruler.axis("off")
 
-    # Add session numbers and shorter ticks
+    # Add session numbers directly at the top of the plot
     filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
     session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] for session in filtered_sessions]
     
     for session, start_index in zip(filtered_sessions, session_start_indices):
-        # Add session number with smaller font size
+        # Place session numbers at the top edge of the plot
         ax_ruler.text(
             start_index,
-            0.55,  # Position slightly above the tick
+            1.0,  # Position at the top edge of the plot (in relative coordinates)
             str(session),
-            fontsize=8,  # Smaller font size
+            fontsize=8,  # Adjust font size as needed
             fontweight="bold",
             ha="center",
-            va="center",
+            va="bottom",
             transform=ax_ruler.transData,
         )
-        # Add very short tick marks directly under the session number
-        ax_ruler.plot(
-            [start_index, start_index],
-            [0.5, 0.52],  # Very short tick length
-            color="black",
-            lw=1,
-            transform=ax_ruler.transData,
-        )
+
 
 
 
