@@ -83,7 +83,7 @@ if data is not None and not data.empty:
         <div style="
             display: flex; 
             align-items: center; 
-            font-family: 'Comic Sans MS', 'Chalkboard', sans-serif; 
+            font-family: 'Courier Sans', monospace; 
             font-size: 2.5em; 
             color: #85a3e0;
         ">
