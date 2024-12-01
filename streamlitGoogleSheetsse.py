@@ -61,7 +61,6 @@ def check_password():
     return False
 
 
-
 if not check_password():
     st.stop()
 
@@ -86,9 +85,6 @@ if data is not None and not data.empty:
                     "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
-
-
-    
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     serial_number = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
@@ -106,8 +102,6 @@ if data is not None and not data.empty:
             unsafe_allow_html=True,
         )
     
-    # Rotating icon in the second column
-
     # Rotating icon in the second column
     with col_icon:
         st.markdown(
@@ -131,120 +125,98 @@ if data is not None and not data.empty:
             unsafe_allow_html=True,
         )
 
-
-
     # Add space between the title and the plot
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
-   
     # Get unique session numbers and assign rainbow colors
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
+    # Create a 3x2 grid of plots with an additional row for the ruler above subplot (0, 0)
+    fig = plt.figure(figsize=(12, 10))
+    gs = fig.add_gridspec(3, 2, height_ratios=[0.2, 1, 1])  # Extra row for the ruler
 
+    # Define axes
+    ax_ruler = fig.add_subplot(gs[0, 0])  # Ruler at the top, spanning only subplot (0, 0)
+    ax_module_temp = fig.add_subplot(gs[1, 0])  # Module Temperature plot
+    ax_seed_temp = fig.add_subplot(gs[2, 0])  # Seed Temperature plot
+    ax_pump1_current = fig.add_subplot(gs[1, 1])  # Pump1 Current plot
+    ax_pump2_current = fig.add_subplot(gs[2, 1])  # Pump2 Current plot
 
-    # Create a 2x2 grid of plots
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
+    # Turn off the x-axis and y-axis for the ruler
+    ax_ruler.axis("off")
+
+    # Calculate the range of session numbers to include in the rectangle
+    filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
+    session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] for session in filtered_sessions]
+
+    # Add session numbers and ticks inside the rectangle
+    for session, start_index in zip(filtered_sessions, session_start_indices):
+        ax_ruler.text(
+            start_index,
+            0.5,  # Position the session number inside the rectangle
+            str(session),
+            fontsize=10,
+            fontweight="bold",
+            ha="center",
+            va="center",
+            transform=ax_ruler.transData,
+        )
+        ax_ruler.plot(
+            [start_index, start_index],
+            [0.45, 0.47],  # Tick mark just below the session number
+            color="black",
+            lw=1,
+            transform=ax_ruler.transData,
+        )
 
     # Plot 1: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
-        axes[0, 0].plot(
+        ax_module_temp.plot(
             session_data["ID"], 
             session_data["ModuleTemperature"], 
             label=f"Session {session}", 
             color=color
         )
-    axes[0, 0].set_xlabel("ID")
-    axes[0, 0].set_ylabel("Module Temperature [°C]")
+    ax_module_temp.set_xlabel("ID")
+    ax_module_temp.set_ylabel("Module Temperature [°C]")
 
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
-        axes[1, 0].plot(
+        ax_seed_temp.plot(
             session_data["ID"], 
             session_data["SeedTemperature"], 
             label=f"Session {session}", 
             color=color
         )
-    axes[1, 0].set_xlabel("ID")
-    axes[1, 0].set_ylabel("Seed Temperature [°C]")
+    ax_seed_temp.set_xlabel("ID")
+    ax_seed_temp.set_ylabel("Seed Temperature [°C]")
 
     # Plot 3: ID vs Pump1Current with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
-        axes[0, 1].plot(
+        ax_pump1_current.plot(
             session_data["ID"], 
             session_data["Pump1Current"], 
             label=f"Session {session}", 
             color=color
         )
-    axes[0, 1].set_xlabel("ID")
-    axes[0, 1].set_ylabel("Pump1 Current [mA]")
+    ax_pump1_current.set_xlabel("ID")
+    ax_pump1_current.set_ylabel("Pump1 Current [mA]")
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
-        axes[1, 1].plot(
+        ax_pump2_current.plot(
             session_data["ID"], 
             session_data["Pump2Current"], 
             label=f"Session {session}", 
             color=color
         )
-    axes[1, 1].set_xlabel("ID")
-    axes[1, 1].set_ylabel("Pump2 Current [mA]")
+    ax_pump2_current.set_xlabel("ID")
+    ax_pump2_current.set_ylabel("Pump2 Current [mA]")
 
     # Adjust layout for better spacing
     fig.tight_layout(pad=2.0)  # Add padding between subplots
-
-    # Display the plots in Streamlit
-    st.pyplot(fig)
-
-
-
-
-
-
-    # Add buttons after the plot
-    col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
-
-    with col1:
-        if st.button("Clear Cache"):
-            st.cache_data.clear()
-            st.success("Cache cleared!")
-
-    with col2:
-        if st.button("Log Off"):
-            # Reset session state
-            st.session_state["password_correct"] = False
-            st.session_state["username"] = None
-            st.session_state["password"] = None
-            st.session_state["logoff"] = False  # Reset the logoff flag
-
-            # Provide feedback to the user
-            st.success("You have been logged off successfully! Redirecting...")
-            time.sleep(1)  # Wait 1 second for feedback to be visible
-            st.rerun()  # Rerun to clear the interface
-
-            # Stop execution
-            st.stop()
-
-    with col3:
-        # Add a button to download the data as a CSV
-        if data is not None and not data.empty:  # Ensure there's data to download
-            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
-            st.download_button(
-                label="Download Data as CSV",
-                data=csv,
-                file_name="data.csv",
-                mime="text/csv",
-            )
-        else:
-            st.warning("No data available to download.")
-else:
-    st.warning("No data available to plot.")
-
-
-
-
-
