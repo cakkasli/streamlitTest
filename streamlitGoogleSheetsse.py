@@ -93,6 +93,40 @@ if data is not None and not data.empty:
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
 
+    # Add the icon to the top-right corner of the page with fullscreen functionality
+    st.markdown(
+        """
+        <style>
+            .top-right-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                z-index: 1000;
+                cursor: pointer; /* Change cursor to pointer for clickable icon */
+            }
+        </style>
+        <div class="top-right-icon" onclick="toggleFullscreen()">
+            <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
+                 alt="NORBLIS Logo" width="50">
+        </div>
+        <script>
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            }
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    
+    
+    
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     serial_number = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
