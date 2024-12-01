@@ -106,6 +106,8 @@ if data is not None and not data.empty:
         )
     
     # Rotating icon in the second column
+
+    # Rotating icon in the second column
     with col_icon:
         st.markdown(
             """
@@ -116,6 +118,8 @@ if data is not None and not data.empty:
                 }
                 .rotating-icon {
                     animation: spin 5s linear infinite; /* Rotate every 5 seconds */
+                    transform-origin: 50px 50%; /* Adjust rotation origin */
+                    display: inline-block;
                 }
             </style>
             <div class="rotating-icon">
@@ -125,6 +129,7 @@ if data is not None and not data.empty:
             """,
             unsafe_allow_html=True,
         )
+
 
 
     # Add space between the title and the plot
