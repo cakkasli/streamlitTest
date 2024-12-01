@@ -154,7 +154,7 @@ if data is not None and not data.empty:
         # Add session number with smaller font size
         ax_ruler.text(
             start_index,
-            0.6,  # Position slightly above the tick
+            0.55,  # Position slightly above the tick
             str(session),
             fontsize=8,  # Smaller font size
             fontweight="bold",
@@ -162,14 +162,15 @@ if data is not None and not data.empty:
             va="center",
             transform=ax_ruler.transData,
         )
-        # Add shorter tick marks directly under the session number
+        # Add very short tick marks directly under the session number
         ax_ruler.plot(
             [start_index, start_index],
-            [0.5, 0.55],  # Shorter tick length
+            [0.5, 0.52],  # Very short tick length
             color="black",
             lw=1,
             transform=ax_ruler.transData,
         )
+
 
 
     # Plot 1: ID vs ModuleTemperature with session-based colors
