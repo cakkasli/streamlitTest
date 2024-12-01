@@ -6,8 +6,6 @@ import numpy as np  # Ensure you import numpy for colors
 import time
 
 
-
-
 # Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
@@ -100,7 +98,9 @@ if data is not None and not data.empty:
                     "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
-       
+
+    st.title("Nordata for  SN")
+    
     with col3:
         # Add a button to download the data as a CSV
         if data is not None and not data.empty:  # Ensure there's data to download
