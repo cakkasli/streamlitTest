@@ -77,6 +77,21 @@ if data is not None and not data.empty:
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     str_serial_num = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
+    # Set the dynamic title with custom style
+    st.markdown(
+        f"""
+        <h1 style="
+            font-family: 'Comic Sans MS', 'Chalkboard', sans-serif;
+            font-size: 2.5em;
+            color: turquoise;
+            text-align: center;
+        ">
+            Nordata for {str_serial_num}
+        </h1>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # Set the dynamic title
     st.title(f"Nordata for {str_serial_num}")
     
