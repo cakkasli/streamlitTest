@@ -141,7 +141,7 @@ if data is not None and not data.empty:
 
 
     # Create a 2x2 grid of plots
-    fig, axes = plt.subplots(2, 2, figsize=(16, 12))  # 2 rows, 2 columns
+    fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
     # Plot 1: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
