@@ -77,22 +77,23 @@ if data is not None and not data.empty:
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     str_serial_num = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
 
-    # Set the dynamic title with custom style
+    # Add title with your custom icon
     st.markdown(
         f"""
-        <h1 style="
-            font-family: 'Comic Sans MS', 'Chalkboard', sans-serif;
-            font-size: 2.5em;
-            color: #5A5D9C; /* Light Navy Blue */
-            text-align: left;
+        <div style="
+            display: flex; 
+            align-items: center; 
+            font-family: 'Comic Sans MS', 'Chalkboard', sans-serif; 
+            font-size: 2.5em; 
+            color: #5A5D9C;
         ">
-            Nordata for SN: {str_serial_num}
-        </h1>
+            <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
+                 alt="NORBLIS Logo" width="40" style="margin-right: 10px;">
+            <span>Nordata for {str_serial_num}</span>
+        </div>
         """,
         unsafe_allow_html=True,
     )
-
-    
     
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
