@@ -86,8 +86,8 @@ if data is not None and not data.empty:
             }
             .top-right-icon {
                 position: absolute;
-                top: 6px;
-                right: 6px;
+                top: 1px;
+                right: 1px;
                 z-index: 1000;
                 animation: spin 5s linear infinite; /* Rotate every 5 seconds */
             }
@@ -118,10 +118,15 @@ if data is not None and not data.empty:
         """,
         unsafe_allow_html=True,
     )
+
+
+    # Add space between the title and the plot
+    st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
     # Get unique session numbers
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
+    
 
     # Plot value vs index
     fig, axes = plt.subplots(1, 2, figsize=(12, 6))  # 1 row, 2 columns
