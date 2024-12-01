@@ -154,8 +154,8 @@ if data is not None and not data.empty:
             label=f"Session {session}", 
             color=color
         )
-    axes[0, 0].set_xlabel("ID")
-    axes[0, 0].set_ylabel("Seed Temperature")
+    axes[1, 0].set_xlabel("ID")
+    axes[1, 0].set_ylabel("Seed Temperature")
 
     # Plot 2: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -166,8 +166,8 @@ if data is not None and not data.empty:
             label=f"Session {session}", 
             color=color
         )
-    axes[0, 1].set_xlabel("ID")
-    axes[0, 1].set_ylabel("Module Temperature")
+    axes[0, 0].set_xlabel("ID")
+    axes[0, 0].set_ylabel("Module Temperature")
 
     # Plot 3: ID vs Pump1Current with session-based colors
     for session, color in zip(session_numbers, colors):
