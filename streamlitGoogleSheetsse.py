@@ -121,43 +121,75 @@ if data is not None and not data.empty:
     # Add space between the title and the plot
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
     
-    # Get unique session numbers
+   
+    # Get unique session numbers and assign rainbow colors
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
-    
+
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))  # 2 rows, 2 columns
 
-    # Plot 1: ID vs SeedTemperature
-    axes[0, 0].plot(data["ID"], data["SeedTemperature"], marker=".", linestyle="-")
+    # Plot 1: ID vs SeedTemperature with session-based colors
+    for session, color in zip(session_numbers, colors):
+        session_data = data[data["SessionNumber"] == session]
+        axes[0, 0].plot(
+            session_data["ID"], 
+            session_data["SeedTemperature"], 
+            label=f"Session {session}", 
+            color=color
+        )
     axes[0, 0].set_title("Seed Temperature")
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Temperature")
+    axes[0, 0].legend()
 
-    # Plot 2: ID vs ModuleTemperature
-    axes[0, 1].plot(data["ID"], data["ModuleTemperature"], marker=".", linestyle="-")
+    # Plot 2: ID vs ModuleTemperature with session-based colors
+    for session, color in zip(session_numbers, colors):
+        session_data = data[data["SessionNumber"] == session]
+        axes[0, 1].plot(
+            session_data["ID"], 
+            session_data["ModuleTemperature"], 
+            label=f"Session {session}", 
+            color=color
+        )
     axes[0, 1].set_title("Module Temperature")
     axes[0, 1].set_xlabel("ID")
     axes[0, 1].set_ylabel("Temperature")
+    axes[0, 1].legend()
 
-    # Plot 3: ID vs Pump1Current
-    axes[1, 0].plot(data["ID"], data["Pump1Current"], marker=".", linestyle="-")
+    # Plot 3: ID vs Pump1Current with session-based colors
+    for session, color in zip(session_numbers, colors):
+        session_data = data[data["SessionNumber"] == session]
+        axes[1, 0].plot(
+            session_data["ID"], 
+            session_data["Pump1Current"], 
+            label=f"Session {session}", 
+            color=color
+        )
     axes[1, 0].set_title("Pump1 Current")
     axes[1, 0].set_xlabel("ID")
     axes[1, 0].set_ylabel("Current")
+    axes[1, 0].legend()
 
-    # Plot 4: ID vs Pump2Current
-    axes[1, 1].plot(data["ID"], data["Pump2Current"], marker=".", linestyle="-")
+    # Plot 4: ID vs Pump2Current with session-based colors
+    for session, color in zip(session_numbers, colors):
+        session_data = data[data["SessionNumber"] == session]
+        axes[1, 1].plot(
+            session_data["ID"], 
+            session_data["Pump2Current"], 
+            label=f"Session {session}", 
+            color=color
+        )
     axes[1, 1].set_title("Pump2 Current")
     axes[1, 1].set_xlabel("ID")
     axes[1, 1].set_ylabel("Current")
+    axes[1, 1].legend()
 
     # Adjust layout for better spacing
     fig.tight_layout()
 
     # Display the plots in Streamlit
     st.pyplot(fig)
-
     # Add buttons after the plot
     col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
 
