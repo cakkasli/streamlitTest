@@ -282,10 +282,10 @@ for session in filtered_sessions:
     session_data = data[data["SessionNumber"] == session]
     start_index = session_data["ID"].iloc[0]  # Start of the session
 
-    # Add tick marks crossing only the bottom part of the rectangle
+    # Add tick marks crossing slightly below the rectangle
     ax_ruler.plot(
         [start_index, start_index],
-        [0.4, 0.42],  # Tick crosses only the bottom
+        [0.4, 0.39],  # Tick starts at bottom edge of rectangle and crosses below
         color="black",
         lw=1,
         transform=ax_ruler.transData,
