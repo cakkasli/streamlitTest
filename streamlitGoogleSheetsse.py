@@ -56,8 +56,6 @@ if not check_password():
     st.stop()
 
 
-
-
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
 
@@ -86,8 +84,8 @@ if data is not None and not data.empty:
             }
             .top-right-icon {
                 position: absolute;
-                top: 1px;
-                right: 1px;
+                top: 10px;
+                right: 10px;
                 z-index: 1000;
                 animation: spin 5s linear infinite; /* Rotate every 5 seconds */
             }
