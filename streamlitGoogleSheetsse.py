@@ -275,10 +275,10 @@ ax_ruler.add_patch(rect)
 
 # Add session ticks for every 6th session (start only)
 for session in session_numbers:
-    if session % 6 == 0 or session == session_numbers[-1]:  # Every 6th session or the last session
-        session_data = data[data["SessionNumber"] == session]
-        start_index = session_data["ID"].iloc[0]  # Start of the session
+    session_data = data[data["SessionNumber"] == session]
+    start_index = session_data["ID"].iloc[0]  # Start of the session
 
+    if session % 6 == 0 or session == session_numbers[-1]:  # Every 6th session or the last session
         # Add tick marks
         ax_ruler.plot(
             [start_index, start_index],
