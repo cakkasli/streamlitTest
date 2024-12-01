@@ -251,7 +251,6 @@ else:
 
 
 
-
 # Add the ruler after the buttons
 st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)  # Spacer after buttons
 
@@ -263,44 +262,48 @@ gs = fig.add_gridspec(2, 1, height_ratios=[0.2, 0.8])  # Top row for the ruler
 ax_ruler = fig.add_subplot(gs[0, 0])  # Add a single subplot for the ruler
 ax_ruler.axis("off")  # Turn off axis for a clean ruler look
 
-# Add the rectangle background for the ruler
+# Calculate the range of session numbers to include in the rectangle
+filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
+session_start_indices = [data[data["SessionNumber"] == session]["ID"].iloc[0] for session in filtered_sessions]
+
+# Define the rectangle dimensions based on filtered sessions
+rect_start = session_start_indices[0]  # Start at the first session's index
+rect_end = session_start_indices[-1]   # End at the last session's index
+
+# Add the rectangle background around the selected session numbers
 rect = patches.Rectangle(
-    (0, 0),  # Position in axis-relative coordinates
-    1,  # Full width
-    0.2,  # Height
-    transform=ax_ruler.transAxes,
+    (rect_start, 0.4),  # Position in data coordinates (start index, bottom edge of rectangle)
+    rect_end - rect_start,  # Width of the rectangle
+    0.2,  # Height of the rectangle
     linewidth=1,
     edgecolor="black",
     facecolor="white",
     alpha=0.5,
+    transform=ax_ruler.transData,  # Use data coordinates for positioning
 )
 ax_ruler.add_patch(rect)
 
-# Add session numbers and ticks directly inside the rectangle
-filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
-for session in filtered_sessions:
-    session_data = data[data["SessionNumber"] == session]
-    start_index = session_data["ID"].iloc[0]  # Start of the session
-
+# Add session numbers and ticks inside the rectangle
+for session, start_index in zip(filtered_sessions, session_start_indices):
     # Add session number as text inside the rectangle
     ax_ruler.text(
         start_index,
-        0.6,  # Position the session number inside the rectangle
+        0.5,  # Position the session number inside the rectangle
         str(session),
         fontsize=10,
         fontweight="bold",
         ha="center",
         va="center",
-        transform=ax_ruler.get_xaxis_transform(),
+        transform=ax_ruler.transData,
     )
 
     # Add tick mark directly under the session number
     ax_ruler.plot(
         [start_index, start_index],
-        [0.4, 0.5],  # Tick just below the session number
+        [0.4, 0.42],  # Tick mark just below the session number
         color="black",
         lw=1,
-        transform=ax_ruler.get_xaxis_transform(),
+        transform=ax_ruler.transData,
     )
 
 # Main Plots (Placeholder for actual plots)
@@ -320,5 +323,6 @@ fig.tight_layout(h_pad=2.0)
 
 # Display the figure in Streamlit
 st.pyplot(fig)
+
 
 
