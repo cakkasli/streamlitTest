@@ -65,6 +65,9 @@ if not check_password():
     st.stop()
 
 
+# Set the Streamlit page layout to wide
+st.set_page_config(layout="wide")
+
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
 
