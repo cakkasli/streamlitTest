@@ -129,55 +129,6 @@ if data is not None and not data.empty:
         unsafe_allow_html=True,
     )
 
-    # Extract SerialNumber
-serial_number = data["SerialNumber"].iloc[0]
-
-# Use columns to layout the title and buttons side by side
-col_title, col_button1, col_button2, col_button3 = st.columns([2, 1, 1, 1])  # Adjust proportions
-
-# Title in the first column
-with col_title:
-    st.markdown(
-        f"""
-        <div style="font-family: 'Courier Sans', monospace; font-size: 2.5em; color: #85a3e0; text-align: left;">
-            Serial No: {serial_number}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    # Buttons in the other columns
-    with col_button1:
-        if st.button("Clear Cache"):
-            st.cache_data.clear()
-            st.success("Cache cleared!")
-    
-    with col_button2:
-        if st.button("Log Off"):
-            # Reset session state
-            st.session_state["password_correct"] = False
-            st.session_state["username"] = None
-            st.session_state["password"] = None
-            st.session_state["logoff"] = False  # Reset the logoff flag
-    
-            # Provide feedback to the user
-            st.success("You have been logged off successfully! Redirecting...")
-            time.sleep(1)  # Wait 1 second for feedback to be visible
-            st.rerun()  # Rerun to clear the interface
-    
-    with col_button3:
-        # Add a button to download the data as a CSV
-        if data is not None and not data.empty:  # Ensure there's data to download
-            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
-            st.download_button(
-                label="Download Data as CSV",
-                data=csv,
-                file_name="data.csv",
-                mime="text/csv",
-            )
-        else:
-            st.warning("No data available to download.")
-
 
     # Add space between the title and the plot
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
@@ -249,6 +200,41 @@ with col_title:
 
     # Display the plots in Streamlit
     st.pyplot(fig)
+    # Add buttons after the plot
+    col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
 
+    with col1:
+        if st.button("Clear Cache"):
+            st.cache_data.clear()
+            st.success("Cache cleared!")
+
+    with col2:
+        if st.button("Log Off"):
+            # Reset session state
+            st.session_state["password_correct"] = False
+            st.session_state["username"] = None
+            st.session_state["password"] = None
+            st.session_state["logoff"] = False  # Reset the logoff flag
+
+            # Provide feedback to the user
+            st.success("You have been logged off successfully! Redirecting...")
+            time.sleep(1)  # Wait 1 second for feedback to be visible
+            st.rerun()  # Rerun to clear the interface
+
+            # Stop execution
+            st.stop()
+
+    with col3:
+        # Add a button to download the data as a CSV
+        if data is not None and not data.empty:  # Ensure there's data to download
+            csv = data.to_csv(index=False)  # Convert DataFrame to CSV
+            st.download_button(
+                label="Download Data as CSV",
+                data=csv,
+                file_name="data.csv",
+                mime="text/csv",
+            )
+        else:
+            st.warning("No data available to download.")
 else:
     st.warning("No data available to plot.")
