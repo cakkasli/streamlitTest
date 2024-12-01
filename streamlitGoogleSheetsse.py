@@ -18,10 +18,10 @@ if "logoff" not in st.session_state:
 
 
 def check_password():
-    """Returns `True` if the user had a correct password."""
-
+    """Returns `True` if the user entered the correct password."""
+    # Show the login form
     def login_form():
-        """Form with widgets to collect user information"""
+        """Form with widgets to collect user information."""
         with st.form("Credentials"):
             st.text_input("Username", key="username")
             st.text_input("Password", type="password", key="password")
@@ -29,9 +29,7 @@ def check_password():
 
     def password_entered():
         """Checks whether a password entered by the user is correct."""
-        if st.session_state["username"] in st.secrets[
-            "passwords"
-        ] and hmac.compare_digest(
+        if st.session_state["username"] in st.secrets["passwords"] and hmac.compare_digest(
             st.session_state["password"],
             st.secrets.passwords[st.session_state["username"]],
         ):
@@ -40,16 +38,27 @@ def check_password():
             del st.session_state["username"]
         else:
             st.session_state["password_correct"] = False
+            st.session_state["login_attempted"] = True  # Track login attempts
 
-    # Return True if the username + password is validated.
+    # Ensure the `login_attempted` state exists to track if the user has attempted to log in
+    if "login_attempted" not in st.session_state:
+        st.session_state["login_attempted"] = False
+
+    # Return True if the user is validated
     if st.session_state.get("password_correct", False):
         return True
 
-    # Show inputs for username + password.
+    # Show the login form
     login_form()
-    if "password_correct" in st.session_state:
+
+    # Show an error message only after an incorrect login attempt
+    if st.session_state.get("login_attempted", False) and not st.session_state.get(
+        "password_correct", False
+    ):
         st.error("😕 User not known or password incorrect")
+
     return False
+
 
 
 if not check_password():
