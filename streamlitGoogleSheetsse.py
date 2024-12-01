@@ -276,28 +276,30 @@ rect = patches.Rectangle(
 )
 ax_ruler.add_patch(rect)
 
-# Add ticks for every 6th session start
+# Add session numbers and ticks directly inside the rectangle
 filtered_sessions = [session for i, session in enumerate(session_numbers) if i % 6 == 0 or session == session_numbers[-1]]
 for session in filtered_sessions:
     session_data = data[data["SessionNumber"] == session]
     start_index = session_data["ID"].iloc[0]  # Start of the session
 
-    # Add tick marks crossing the bottom edge of the rectangle
-    ax_ruler.plot(
-        [start_index, start_index],
-        [-0.02, 0],  # Adjusted to cross the bottom edge of the rectangle
-        color="black",
-        lw=1,
-        transform=ax_ruler.get_xaxis_transform(),
-    )
+    # Add session number as text inside the rectangle
     ax_ruler.text(
         start_index,
-        0.1,  # Position of the session number text within the rectangle
+        0.6,  # Position the session number inside the rectangle
         str(session),
         fontsize=10,
         fontweight="bold",
         ha="center",
         va="center",
+        transform=ax_ruler.get_xaxis_transform(),
+    )
+
+    # Add tick mark directly under the session number
+    ax_ruler.plot(
+        [start_index, start_index],
+        [0.4, 0.5],  # Tick just below the session number
+        color="black",
+        lw=1,
         transform=ax_ruler.get_xaxis_transform(),
     )
 
