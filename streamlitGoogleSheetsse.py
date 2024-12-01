@@ -148,14 +148,14 @@ if data is not None and not data.empty:
     # Plot 1: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
-        axes[1, 0].plot(
+        axes[0, 1].plot(
             session_data["ID"], 
             session_data["SeedTemperature"], 
             label=f"Session {session}", 
             color=color
         )
-    axes[1, 0].set_xlabel("ID")
-    axes[1, 0].set_ylabel("Seed Temperature")
+    axes[0, 1].set_xlabel("ID")
+    axes[0, 1].set_ylabel("Seed Temperature")
 
     # Plot 2: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
