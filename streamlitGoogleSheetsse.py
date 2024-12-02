@@ -145,14 +145,6 @@ if data is not None and not data.empty:
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
     
-
-    # Get the fixed vertical position for all session numbers
-    y_above_top = axes[0, 0].get_ylim()[1] + 0.1 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
-
-
-
-
-
     # Get the fixed vertical position for the Module Temperature plot
     y_above_top = axes[0, 0].get_ylim()[1] + 0.1 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
     
