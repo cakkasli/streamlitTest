@@ -145,42 +145,15 @@ if data is not None and not data.empty:
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
     
-    # Plot 1: ID vs ModuleTemperature with session-based colors, black annotations, and black ticks
+    # Plot 1: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 0].plot(
             session_data["ID"], 
             session_data["ModuleTemperature"], 
+            label=f"Session {session}", 
             color=color
         )
-        # Annotate only if the session number is a multiple of 6
-        if session % 6 == 0:
-            midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
-            if not session_data.empty:
-                x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
-                # Annotate the session number
-                axes[0, 0].text(
-                    x_midpoint, 
-                    y_above_top,  # Fixed vertical position above Module Temperature plot
-                    f"{session}",  # Only the session number
-                    color="black",  # Black color
-                    fontsize=10, 
-                    ha="center",
-                    va="bottom"  # Align text from the bottom
-                )
-                # Add a black tick under the session number
-                tick_length = 0.02 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
-                axes[0, 0].plot(
-                    [x_midpoint, x_midpoint], 
-                    [axes[0, 0].get_ylim()[1], axes[0, 0].get_ylim()[1] - tick_length], 
-                    color="black",  # Black tick
-                    linewidth=0.8
-                )
-    
-    # Adjust plot limits for the Module Temperature plot to ensure annotations are visible
-    axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
-    
-    # Label axes for the Module Temperature plot
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
 
