@@ -132,23 +132,6 @@ if data is not None and not data.empty:
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
-    # Create a 3x2 grid of plots with an additional row for the ruler above subplot (0, 0)
-    fig = plt.figure(figsize=(12, 10))
-    gs = fig.add_gridspec(3, 2, height_ratios=[0.2, 1, 1])  # Extra row for the ruler
-
-    # Define axes
-    ax_ruler = fig.add_subplot(gs[0, 0])  # Ruler at the top, spanning only subplot (0, 0)
-    ax_module_temp = fig.add_subplot(gs[1, 0])  # Module Temperature plot
-    ax_seed_temp = fig.add_subplot(gs[2, 0])  # Seed Temperature plot
-    ax_pump1_current = fig.add_subplot(gs[1, 1])  # Pump1 Current plot
-    ax_pump2_current = fig.add_subplot(gs[2, 1])  # Pump2 Current plot
-
-    # Turn off the x-axis and y-axis for the ruler
-    ax_ruler.axis("off")
-
-
-
-
 
     # Plot 1: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
