@@ -153,19 +153,22 @@ if data is not None and not data.empty:
             session_data["ModuleTemperature"], 
             label=f"Session {session}", 
             color=color
+
+        # Add text annotation for every 6th session
+        if session % 6 == 0:
+            ax.text(
+                session_data["ID"].iloc[-1],  # Last ID in the session
+                session_data["ModuleTemperature"].iloc[-1],  # Last value in the session
+                f"{session}", 
+                fontsize=10, fontweight="bold", color=color
         )
+        )
+
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
 
 
-       # Add text annotation for every 6th session
-    if session % 6 == 0:
-        ax.text(
-            session_data["ID"].iloc[-1],  # Last ID in the session
-            session_data["ModuleTemperature"].iloc[-1],  # Last value in the session
-            f"{session}", 
-            fontsize=10, fontweight="bold", color=color
-        )
+
 
 
 
