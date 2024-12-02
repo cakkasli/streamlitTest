@@ -158,17 +158,19 @@ if data is not None and not data.empty:
             midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
             if not session_data.empty:
                 x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
-                y_midpoint = session_data["ModuleTemperature"].iloc[midpoint_idx]  # Y value for annotation
+                # Place annotation at a fixed distance from the bottom of the plot
+                y_fixed_position = axes[0, 0].get_ylim()[0] + 0.05 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
                 axes[0, 0].text(
                     x_midpoint, 
-                    y_midpoint + 1,  # Slightly above the data point
-                    f"Session {session}", 
+                    y_fixed_position,  # Fixed vertical position
+                    f"{session}",  # Only the session number
                     color=color, 
                     fontsize=8, 
                     ha="center"
                 )
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
     # Plot 2: ID vs SeedTemperature with session-based colors
