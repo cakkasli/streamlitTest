@@ -144,7 +144,8 @@ if data is not None and not data.empty:
 
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
-    
+
+    # Plot 1: ID vs ModuleTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 0].plot(
@@ -153,19 +154,21 @@ if data is not None and not data.empty:
             label=f"Session {session}", 
             color=color
         )
-    
-        # Add text annotation for every 6th session
+        
+        # Add text annotation for every 6th session with fixed vertical position
         if session % 6 == 1:
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                session_data["ModuleTemperature"].iloc[-1] + 0.002,  # Adjust for visibility
+                75,  # Fixed vertical position for alignment
                 str(session), 
-                fontsize=10, fontweight='bold', color='black'
+                fontsize=10, fontweight='bold', color='black',
+                ha='center'  # Center-align the text horizontally
             )
-
-
+    
+    # Set axis labels
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
 
