@@ -180,12 +180,12 @@ if data is not None and not data.empty:
                     linewidth=0.8
                 )
     
-    # Adjust plot limits to ensure annotations are visible
-    axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
-    
-    # Label axes
-    axes[0, 0].set_xlabel("ID")
-    axes[0, 0].set_ylabel("Module Temperature [°C]")
+        # Adjust plot limits to ensure annotations are visible
+        axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
+        
+        # Label axes
+        axes[0, 0].set_xlabel("ID")
+        axes[0, 0].set_ylabel("Module Temperature [°C]")
 
 
 
