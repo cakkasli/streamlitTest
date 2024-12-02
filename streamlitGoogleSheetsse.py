@@ -146,6 +146,9 @@ if data is not None and not data.empty:
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
     
 
+    # Get the fixed vertical position for all session numbers
+    y_above_top = axes[0, 0].get_ylim()[1] + 0.1 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
+
     # Plot 1: ID vs ModuleTemperature with session-based colors, black annotations, and black ticks
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
@@ -159,12 +162,10 @@ if data is not None and not data.empty:
             midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
             if not session_data.empty:
                 x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
-                # Fixed position above the top edge for all numbers
-                y_above_top = axes[0, 0].get_ylim()[1] + 0.05 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
                 # Annotate the session number
                 axes[0, 0].text(
                     x_midpoint, 
-                    y_above_top,  # Fixed position
+                    y_above_top,  # Use fixed vertical position
                     f"{session}",  # Only the session number
                     color="black",  # Black color
                     fontsize=10, 
@@ -180,12 +181,13 @@ if data is not None and not data.empty:
                     linewidth=0.8
                 )
     
-        # Adjust plot limits to ensure annotations are visible
-        axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
-        
-        # Label axes
-        axes[0, 0].set_xlabel("ID")
-        axes[0, 0].set_ylabel("Module Temperature [°C]")
+    # Adjust plot limits to ensure annotations are visible
+    axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
+    
+    # Label axes
+    axes[0, 0].set_xlabel("ID")
+    axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
 
