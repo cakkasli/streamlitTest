@@ -146,7 +146,7 @@ if data is not None and not data.empty:
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
     
 
-    # Plot 1: ID vs ModuleTemperature with session-based colors, annotations, and ticks
+    # Plot 1: ID vs ModuleTemperature with session-based colors, black annotations, and black ticks
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 0].plot(
@@ -159,33 +159,34 @@ if data is not None and not data.empty:
             midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
             if not session_data.empty:
                 x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
-                # Position above the top edge of the plot
-                y_above_top = axes[0, 0].get_ylim()[1] + 0.02 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
+                # Fixed position above the top edge for all numbers
+                y_above_top = axes[0, 0].get_ylim()[1] + 0.05 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
                 # Annotate the session number
                 axes[0, 0].text(
                     x_midpoint, 
-                    y_above_top,  # Position slightly above the upper edge
+                    y_above_top,  # Fixed position
                     f"{session}",  # Only the session number
-                    color=color, 
+                    color="black",  # Black color
                     fontsize=10, 
                     ha="center",
                     va="bottom"  # Align text from the bottom
                 )
-                # Add a tiny tick under the session number
+                # Add a black tick under the session number
                 tick_length = 0.02 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
                 axes[0, 0].plot(
                     [x_midpoint, x_midpoint], 
                     [axes[0, 0].get_ylim()[1], axes[0, 0].get_ylim()[1] - tick_length], 
-                    color=color, 
+                    color="black",  # Black tick
                     linewidth=0.8
                 )
     
     # Adjust plot limits to ensure annotations are visible
-    axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.1)
+    axes[0, 0].set_ylim(axes[0, 0].get_ylim()[0], axes[0, 0].get_ylim()[1] * 1.2)
     
     # Label axes
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
 
