@@ -162,12 +162,7 @@ if data is not None and not data.empty:
                 str(session), 
                 fontsize=10, fontweight='bold', color='black'
             )
-            axes[0, 0].text(
-                session_data["ID"].iloc[-1], 
-                session_data["ModuleTemperature"].iloc[-1] - 0.002,  # Adjust for visibility
-                "ı", 
-                fontsize=10, fontweight='normal', color='black'
-            )
+
 
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
