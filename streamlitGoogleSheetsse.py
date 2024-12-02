@@ -147,17 +147,6 @@ if data is not None and not data.empty:
     ax_ruler.axis("off")
 
 
-    
-
-        # Add very short tick marks directly under the session number
-        ax_ruler.plot(
-            [start_index, start_index],
-            [0.05, 0.052],  # Very short tick length
-            color="black",
-            lw=1,
-            transform=ax_ruler.transData,
-        )
-
 
 
 
