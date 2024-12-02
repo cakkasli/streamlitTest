@@ -141,33 +141,6 @@ if data is not None and not data.empty:
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
-    # Create a separate figure for the ruler
-    ruler_fig, ruler_ax = plt.subplots(figsize=(10, 1))  # Wide and short figure
-    
-    # Define session numbers and positions for ticks
-    tick_positions = np.arange(len(session_numbers))  # Use indices as positions
-    ruler_ax.set_xlim(-0.5, len(session_numbers) - 0.5)  # Slight padding
-    
-    # Draw the horizontal line (ruler)
-    ruler_ax.hlines(0, -0.5, len(session_numbers) - 0.5, color="black", linewidth=1)
-    
-    # Add ticks and session numbers
-    for pos, session in zip(tick_positions, session_numbers):
-        ruler_ax.plot([pos, pos], [-0.2, 0.2], color="black", linewidth=0.8)  # Draw ticks
-        ruler_ax.text(pos, 0.3, str(session), ha="center", va="bottom", fontsize=8)  # Add session numbers
-    
-    # Remove unnecessary spines and ticks for clean appearance
-    ruler_ax.spines["top"].set_visible(False)
-    ruler_ax.spines["right"].set_visible(False)
-    ruler_ax.spines["left"].set_visible(False)
-    ruler_ax.spines["bottom"].set_visible(False)
-    ruler_ax.get_yaxis().set_visible(False)  # Hide y-axis
-    ruler_ax.get_xaxis().set_visible(False)  # Hide x-axis
-    
-    # Display the ruler plot in Streamlit
-    st.pyplot(ruler_fig)
-
-
 
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
