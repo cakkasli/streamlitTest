@@ -175,19 +175,6 @@ if data is not None and not data.empty:
 
 
 
-    # Add a rectangle after Plot 1 (axes[0, 0])
-    rect1 = patches.Rectangle(
-        (0.1, -0.2),  # Bottom-left corner just below Plot 1 in Axes coordinates
-        0.8, 0.2,  # Width and height
-        linewidth=1,
-        edgecolor='black',
-        facecolor='white',
-        alpha=0.5,
-        transform=axes[0, 0].transAxes  # Use the specific subplot's coordinate system
-    )
-    
-    # Add the rectangle patch to the first plot (axes[0, 0])
-    axes[0, 0].add_patch(rect1)
 
 
     
@@ -247,6 +234,25 @@ if data is not None and not data.empty:
     # Add the rectangle patch to the figure
     fig.patches.append(rect)
 
+    # Get the current axis
+    ax = plt.gca()
+    
+    # Calculate rectangle bounds based on session numbers
+    rect_x_min = x_positions[0]
+    rect_x_max = x_positions[-1]
+    rect_y_min = y_position - 0.5  # Adjust for height of rectangle
+    rect_y_max = y_position + 0.5  # Adjust for height of rectangle
+    
+    # Create a rectangle patch
+    rect = patches.Rectangle(
+        (rect_x_min, rect_y_min),  # Bottom-left corner
+        rect_x_max - rect_x_min,  # Width
+        rect_y_max - rect_y_min,  # Height
+        linewidth=1, edgecolor='black', facecolor='white', alpha=0.5
+    )
+    
+    # Add rectangle to the plot
+    ax.add_patch(rect)
 
 
     # Add buttons after the plot
