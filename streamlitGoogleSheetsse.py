@@ -153,6 +153,12 @@ if data is not None and not data.empty:
             session_data["ModuleTemperature"], 
             label=f"Session {session}", 
             color=color
+
+        if i % 6 == 1 or i == total_plt - 1:
+            ax1.text(time_hours[-1], 0.7446, str(i), fontsize=10, fontweight='bold', color='black')
+            ax1.text(time_hours[-1], 0.7421, "ı", fontsize=10, fontweight='normal', color='black')
+
+            
         )
 
     axes[0, 0].set_xlabel("ID")
