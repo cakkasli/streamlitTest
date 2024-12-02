@@ -158,18 +158,21 @@ if data is not None and not data.empty:
             midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
             if not session_data.empty:
                 x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
-                # Place annotation at a fixed distance from the bottom of the plot
-                y_fixed_position = axes[0, 0].get_ylim()[0] + 0.05 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
+                # Place annotation near the top edge of the plot
+                y_top_position = axes[0, 0].get_ylim()[1] - 0.05 * (axes[0, 0].get_ylim()[1] - axes[0, 0].get_ylim()[0])
                 axes[0, 0].text(
                     x_midpoint, 
-                    y_fixed_position,  # Fixed vertical position
+                    y_top_position,  # Fixed vertical position near the top
                     f"{session}",  # Only the session number
                     color=color, 
-                    fontsize=8, 
-                    ha="center"
+                    fontsize=10, 
+                    ha="center",
+                    va="top"  # Align text to the top
                 )
+    # Label axes
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
 
