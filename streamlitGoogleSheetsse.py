@@ -175,6 +175,21 @@ if data is not None and not data.empty:
 
 
 
+    # Add a rectangle after Plot 1 (axes[0, 0])
+    rect1 = patches.Rectangle(
+        (0.1, -0.2),  # Bottom-left corner just below Plot 1 in Axes coordinates
+        0.8, 0.2,  # Width and height
+        linewidth=1,
+        edgecolor='black',
+        facecolor='white',
+        alpha=0.5,
+        transform=axes[0, 0].transAxes  # Use the specific subplot's coordinate system
+    )
+    
+    # Add the rectangle patch to the first plot (axes[0, 0])
+    axes[0, 0].add_patch(rect1)
+
+
     
 
 
