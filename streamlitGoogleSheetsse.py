@@ -147,52 +147,32 @@ if data is not None and not data.empty:
 
     
     # Plot 1: ID vs ModuleTemperature with session-based colors    
-    # Create the plot (assuming the rest of the plot code is above this)
-    fig, axes = plt.subplots(1, 1, figsize=(10, 6))
-    
-    # Example data and plotting (this should be replaced with your actual data and plot logic)
-    session_numbers = [19, 25, 31]
-    x_positions = [5000, 15000, 25000]  # Replace with actual x-coordinates of session numbers
-    y_position = 40.5  # Fixed y-coordinate for session numbers
-    
-    for session, x in zip(session_numbers, x_positions):
-        axes.text(
-            x, y_position, str(session),
-            fontsize=10, fontweight='bold', color='black',
-            ha='center', va='bottom'
+    for session, color in zip(session_numbers, colors):
+        session_data = data[data["SessionNumber"] == session]
+        axes[0, 0].plot(
+            session_data["ID"], 
+            session_data["ModuleTemperature"], 
+            label=f"Session {session}", 
+            color=color
         )
+        
+        # Add text annotation for every 6th session with adjusted vertical position
+        if session % 6 == 1:
+            axes[0, 0].text(
+                session_data["ID"].iloc[-1],  # Last ID in the session
+                40.5,  # Slightly above the y-axis limit for alignment
+                str(session), 
+                fontsize=10, fontweight='bold', color='black',
+                ha='center', va='bottom'  # Bottom-align the text
+            )
     
-    # Add rectangle patch around the session numbers
-    # Convert plot coordinates to figure coordinates
-    box_x = axes.transData.transform((x_positions[0], y_position))[0]
-    box_y = axes.transData.transform((x_positions[0], y_position))[1]
-    box_width = (axes.transData.transform((x_positions[-1], y_position))[0] - box_x)
-    box_height = axes.transData.transform((x_positions[0], y_position + 0.2))[1] - box_y
+    # Set axis labels
+    axes[0, 0].set_xlabel("ID")
+    axes[0, 0].set_ylabel("Module Temperature [°C]")
     
-    # Convert the rectangle's top-left corner and dimensions to figure coordinates
-    inv = fig.transFigure.inverted()
-    box_x, box_y = inv.transform((box_x, box_y))
-    box_width, box_height = inv.transform((box_width, box_height))
-    
-    # Create the rectangle
-    rect = patches.Rectangle(
-        (box_x, box_y), box_width, box_height,
-        linewidth=1, edgecolor='black', facecolor='white', alpha=0.5,
-        transform=fig.transFigure
-    )
-    
-    # Add the rectangle to the figure
-    fig.patches.append(rect)
-    
-    # Set plot labels and limits
-    axes.set_xlabel("ID")
-    axes.set_ylabel("Module Temperature [°C]")
-    axes.set_ylim(10, 41)  # Adjust y-axis limits as necessary
-    
-    # Show the plot
-    plt.tight_layout()
-    plt.show()
-    
+    # Adjust y-axis limits to ensure the numbers are closer
+    axes[0, 0].set_ylim(10, 41)
+
     
 
 
