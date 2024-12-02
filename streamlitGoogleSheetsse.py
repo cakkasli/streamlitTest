@@ -175,12 +175,6 @@ if data is not None and not data.empty:
 
     
 
- 
-
-
-
-
-
 
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -227,7 +221,7 @@ if data is not None and not data.empty:
 
 
    # Create a rectangle patch
-    box_width = 0.775  # 80% of the figure width
+    box_width = 0.325  # 80% of the figure width
     box_height = 0.05  # Height in figure coordinate system
     box_x = 0.125  # Center the box horizontally
     box_y = 40.90  # Position the box near the top
