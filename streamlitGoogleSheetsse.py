@@ -144,8 +144,7 @@ if data is not None and not data.empty:
 
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
-
-    # Plot 1: ID vs ModuleTemperature with session-based colors
+    
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 0].plot(
@@ -162,12 +161,14 @@ if data is not None and not data.empty:
                 75,  # Fixed vertical position for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
-                ha='bottom'  # Bottom-align the text horizontally
+                ha='center',  # Center-align horizontally
+                va='bottom'   # Align text vertically from the bottom
             )
     
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
 
 
