@@ -162,7 +162,7 @@ if data is not None and not data.empty:
                 75,  # Fixed vertical position for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
-                ha='center'  # Center-align the text horizontally
+                ha='bottom'  # Bottom-align the text horizontally
             )
     
     # Set axis labels
