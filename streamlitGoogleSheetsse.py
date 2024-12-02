@@ -158,6 +158,11 @@ if data is not None and not data.empty:
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
 
+    # Add ticks on the top edge
+    axes[0, 0].xaxis.tick_top()  # Move ticks to the top
+    axes[0, 0].xaxis.set_label_position('top')  # Move the x-axis label to the top (optional)
+    axes[0, 0].set_xticks(axes[0, 0].get_xticks())  # Add ticks at the same positions
+
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
