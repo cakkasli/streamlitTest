@@ -145,17 +145,31 @@ if data is not None and not data.empty:
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
-    # Plot 1: ID vs ModuleTemperature with session-based colors
+    # Plot 1: ID vs ModuleTemperature with session-based colors and annotations for every 6th session
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 0].plot(
             session_data["ID"], 
             session_data["ModuleTemperature"], 
-            label=f"Session {session}", 
             color=color
         )
+        # Annotate only if the session number is a multiple of 6
+        if session % 6 == 0:
+            midpoint_idx = len(session_data["ID"]) // 2  # Calculate midpoint index
+            if not session_data.empty:
+                x_midpoint = session_data["ID"].iloc[midpoint_idx]  # X value for annotation
+                y_midpoint = session_data["ModuleTemperature"].iloc[midpoint_idx]  # Y value for annotation
+                axes[0, 0].text(
+                    x_midpoint, 
+                    y_midpoint + 1,  # Slightly above the data point
+                    f"Session {session}", 
+                    color=color, 
+                    fontsize=8, 
+                    ha="center"
+                )
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
+
 
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
