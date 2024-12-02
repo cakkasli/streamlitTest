@@ -154,9 +154,9 @@ if data is not None and not data.empty:
             label=f"Session {session}", 
             color=color
 
-        if i % 6 == 1 or i == 15 - 1:
-            ax1.text(time_hours[-1], 0.7446, str(i), fontsize=10, fontweight='bold', color='black')
-            ax1.text(time_hours[-1], 0.7421, "ı", fontsize=10, fontweight='normal', color='black')
+        if session % 6 == 1:
+            ax1.text(ID[-1], 0.7446, str(i), fontsize=10, fontweight='bold', color='black')
+            ax1.text(ID[-1], 0.7421, "ı", fontsize=10, fontweight='normal', color='black')
 
             
         )
