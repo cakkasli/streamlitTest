@@ -212,9 +212,9 @@ if data is not None and not data.empty:
 
 
     # Create a rectangle patch
-    box_width = 0.375  # 80% of the figure width
+    box_width = 0.385  # 80% of the figure width
     box_height = 0.05  # Height in figure coordinate system
-    box_x = 0.075  # Center the box horizontally
+    box_x = 0.065  # Center the box horizontally
     box_y = 0.925  # Position the box near the top
     
     rect = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
