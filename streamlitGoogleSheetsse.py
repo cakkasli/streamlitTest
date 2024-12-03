@@ -157,7 +157,7 @@ if data is not None and not data.empty:
         )
         
         # Add text annotation for every 6th session with adjusted vertical position
-        if session % 6 == 1:
+        if session % 3 == 1:
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
                 43.0,  # Slightly above the y-axis limit for alignment
@@ -212,10 +212,10 @@ if data is not None and not data.empty:
 
 
     # Create a rectangle patch
-    box_width = 0.385  # 80% of the figure width
+    box_width = 0.4  # 80% of the figure width
     box_height = 0.05  # Height in figure coordinate system
     box_x = 0.065  # Center the box horizontally
-    box_y = 0.925  # Position the box near the top
+    box_y = 0.945  # Position the box near the top
     
     rect = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
     
