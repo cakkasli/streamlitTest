@@ -174,13 +174,7 @@ if data is not None and not data.empty:
             )
     
     
-    axes[0, 0].text(
-        session_data["ID"].iloc[-1],  # Last ID in the session
-        46,  # Slightly above the y-axis limit for alignment
-        "Session Number", 
-        fontsize=11, fontweight='bold', color='black',
-        ha='center', va='bottom'  # Bottom-align the text
-    )
+
     
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
@@ -237,6 +231,14 @@ if data is not None and not data.empty:
     
     # Add the rectangle patch to the figure
     fig.patches.append(rect)
+
+    axes[0, 0].text(
+    0,  # Last ID in the session
+    46,  # Slightly above the y-axis limit for alignment
+    "Session Number", 
+    fontsize=11, fontweight='bold', color='black',
+    ha='center', va='bottom'  # Bottom-align the text
+    )
 
     # Adjust layout for better spacing
     fig.tight_layout(pad=2.0)  # Add padding between subplots
