@@ -227,7 +227,7 @@ if data is not None and not data.empty:
     box_width = 0.775  # 80% of the figure width
     box_height = 0.05  # Height in figure coordinate system
     box_x = 0.125  # Center the box horizontally
-    box_y = 0.90  # Position the box near the top
+    box_y = 40.90  # Position the box near the top
     
     rect = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
