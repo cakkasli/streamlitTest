@@ -165,6 +165,13 @@ if data is not None and not data.empty:
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
+            axes[0, 0].text(
+                session_data["ID"].iloc[-1],  # Last ID in the session
+                43.0,  # Slightly above the y-axis limit for alignment
+                "41.5", 
+                fontsize=10, fontweight='normal', color='black',
+                ha='center', va='bottom'  # Bottom-align the text
+            )
     
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
