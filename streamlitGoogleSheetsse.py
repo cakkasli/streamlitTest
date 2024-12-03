@@ -222,17 +222,48 @@ if data is not None and not data.empty:
     # Display the plots in Streamlit
     st.pyplot(fig)
 
-    # Create a rectangle patch
-    # Create a rectangle patch
-    box_width = 0.775  # 80% of the figure width
-    box_height = 0.05  # Height in figure coordinate system
-    box_x = 0.125  # Center the box horizontally
-    box_y = 40.90  # Position the box near the top
+    # Create the figure and axes
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
     
-    rect = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
-
-    # Add the rectangle patch to the figure
-    fig.patches.append(rect)
+    # Define rectangle parameters
+    box_width = 0.2  # Width as a fraction of the figure width
+    box_height = 0.1  # Height as a fraction of the figure height
+    initial_x = 0.4  # Initial x position
+    initial_y = 0.45  # Initial y position
+    
+    # Create the rectangle
+    rect = patches.Rectangle((initial_x, initial_y), box_width, box_height,
+                             linewidth=1, edgecolor='black', facecolor='white', alpha=0.7)
+    ax.add_patch(rect)
+    
+    # Movement parameters
+    velocity_x = 0.01
+    velocity_y = 0.01
+    
+    # Update function for animation
+    def update(frame):
+        global initial_x, initial_y, velocity_x, velocity_y
+    
+        # Update position
+        initial_x += velocity_x
+        initial_y += velocity_y
+    
+        # Check for boundary collisions and reverse direction if needed
+        if initial_x + box_width > 1 or initial_x < 0:
+            velocity_x *= -1
+        if initial_y + box_height > 1 or initial_y < 0:
+            velocity_y *= -1
+    
+        # Update the rectangle's position
+        rect.set_xy((initial_x, initial_y))
+        return rect,
+    
+    # Create the animation
+    ani = FuncAnimation(fig, update, frames=200, interval=50, blit=True)
+    
+    plt.show()
 
     # Add buttons after the plot
     col1, col2, col3 = st.columns([1, 1, 1])  # Create three equally spaced columns
