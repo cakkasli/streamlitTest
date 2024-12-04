@@ -208,15 +208,15 @@ if data is not None and not data.empty:
 
         # Add text annotation for every 6th session with adjusted vertical position
         if session % 3 == 1:
-            axes[1, 0].text(
-                session_data["ID"].iloc[-1],  # Last ID in the session
+            axes[0, 1].text(
+                session_data[1000,  # Last ID in the session
                 43.0,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
-            axes[1, 0].text(
-                session_data["ID"].iloc[-1],  # Last ID in the session
+            axes[0, 1].text(
+                session_data[1000,  # Last ID in the session
                 41.5,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
@@ -229,6 +229,7 @@ if data is not None and not data.empty:
     
     axes[0, 1].set_xlabel("ID")
     axes[0, 1].set_ylabel("Pump1 Current [mA]")
+
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
