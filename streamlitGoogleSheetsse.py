@@ -226,6 +226,9 @@ if data is not None and not data.empty:
     axes[0, 1].set_xlabel("ID")
     axes[0, 1].set_ylabel("Pump1 Current [mA]")
 
+    # Adjust y-axis limits to ensure the numbers are closer
+    axes[0, 1].set_ylim(10, 41)
+
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
