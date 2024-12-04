@@ -223,7 +223,7 @@ if data is not None and not data.empty:
 
     # Create a rectangle patch
     box_width = 0.41  # 80% of the figure width
-    box_height = 0.045  # Height in figure coordinate system
+    box_height = 0.040  # Height in figure coordinate system
     box_x = 0.078  # Center the box horizontally
     box_y = 0.900  # Position the box near the top
     
