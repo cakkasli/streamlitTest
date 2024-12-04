@@ -173,8 +173,6 @@ if data is not None and not data.empty:
             )
     
     
-
-    
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
@@ -205,6 +203,23 @@ if data is not None and not data.empty:
             label=f"Session {session}", 
             color=color
         )
+        
+        # Add text annotation for every 6th session with adjusted vertical position
+        if session % 3 == 1:
+            axes[0, 1].text(
+                session_data["ID"].iloc[-1],  # Last ID in the session
+                43.0,  # Slightly above the y-axis limit for alignment
+                str(session), 
+                fontsize=10, fontweight='bold', color='black',
+                ha='center', va='bottom'  # Bottom-align the text
+            )
+            axes[0, 1].text(
+                session_data["ID"].iloc[-1],  # Last ID in the session
+                41.5,  # Slightly above the y-axis limit for alignment
+                "ı", 
+                fontsize=10, fontweight='normal', color='black',
+                ha='center', va='bottom'  # Bottom-align the text
+            )
   
 
     
