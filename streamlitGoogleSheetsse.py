@@ -142,8 +142,8 @@ if data is not None and not data.empty:
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
 
-    # Create a 2x2 grid of plots
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
+# Create a 2x2 grid of plots
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
     
     # Plot 1: ID vs ModuleTemperature with session-based colors    
