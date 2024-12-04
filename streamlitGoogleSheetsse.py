@@ -233,7 +233,7 @@ if data is not None and not data.empty:
     fig.patches.append(rect)
 
     axes[0, 0].text(
-    50,  # Last ID in the session
+    500,  # Last ID in the session
     46,  # Slightly above the y-axis limit for alignment
     "Session Number", 
     fontsize=11, fontweight='bold', color='black',
