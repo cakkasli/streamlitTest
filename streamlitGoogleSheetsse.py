@@ -1,5 +1,4 @@
 import streamlit as st
-
 from streamlit_gsheets import GSheetsConnection
 import matplotlib.pyplot as plt
 import hmac
@@ -177,10 +176,11 @@ if data is not None and not data.empty:
 
     
     # Set axis labels
-    axes[0, 0].set_ylabel("Module Temperature [°C]")
+    axes[0, 0].set_ylabel("Module Temperature [°C]", fontweight='bold', fontsize='large')
     
     # Adjust y-axis limits to ensure the numbers are closer
-    axes[0, 0].set_ylim(10, 41)
+    axes[0, 0].set_ylim(20, 45)
+    axes[0, 1].set_yticks([20, 25, 30, 35, 40, 45])
 
 
     # Plot 2: ID vs SeedTemperature with session-based colors
