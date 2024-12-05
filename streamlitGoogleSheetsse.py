@@ -145,9 +145,6 @@ if data is not None and not data.empty:
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
-    # Retrieve the y-axis limits
-    upper_y_limit = axes[0, 0].get_ylim()
-
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
@@ -174,7 +171,9 @@ if data is not None and not data.empty:
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
-    
+
+    # Retrieve the y-axis limits
+    upper_y_limit = axes[0, 0].get_ylim()
     
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
