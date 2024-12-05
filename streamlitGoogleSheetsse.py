@@ -155,6 +155,9 @@ if data is not None and not data.empty:
             color=color
         )
         
+        # Ensure the y-axis limits are set after all plotting is done
+        _, upper_y_limit = axes[0, 0].get_ylim()
+
         # Add text annotation for every 6th session with adjusted vertical position
         if session % 3 == 1:
             axes[0, 0].text(
