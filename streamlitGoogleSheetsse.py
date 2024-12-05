@@ -255,7 +255,7 @@ if data is not None and not data.empty:
     
     rect_left = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
-    box_x = 0.5  # Center the box horizontally
+    box_x = 0.7  # Center the box horizontally
     
     rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
