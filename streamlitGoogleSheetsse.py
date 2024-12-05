@@ -253,8 +253,8 @@ if data is not None and not data.empty:
     
     rect_left = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
-    box_x = 2 * 0.078  # Center the box horizontally
-    box_y = 2 * 0.900  # Position the box near the top
+    box_x = 200  # Center the box horizontally
+    box_y = 0.900  # Position the box near the top
 
     rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
