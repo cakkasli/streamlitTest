@@ -202,7 +202,7 @@ if data is not None and not data.empty:
         session_data = data[data["SessionNumber"] == session]
         axes[0, 1].plot(
             session_data["ID"], 
-            session_data["Pump1Current"], 
+            session_data["Pump1Current"] / 1000, 
             label=f"Session {session}", 
             color=color
         )
