@@ -146,7 +146,7 @@ if data is not None and not data.empty:
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
     # Retrieve the y-axis limits
-     _, upper_y_limit = axes[0, 0].get_ylim()
+    upper_y_limit = axes[0, 0].get_ylim()
 
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
