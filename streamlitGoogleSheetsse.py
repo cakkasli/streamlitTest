@@ -146,7 +146,7 @@ if data is not None and not data.empty:
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
     # Ensure the y-axis limits are set after all plotting is done
-    _, upper_y_limit = axes[0, 0].get_ylim()
+    upper_y_limit = max(ax.get_ylim()[1] for ax_row in axes for ax in ax_row)
 
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
@@ -164,14 +164,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                upper_y_limit * 2,  # Slightly above the y-axis limit for alignment
+                upper_y_limit,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                upper_y_limit * 2,  # Slightly above the y-axis limit for alignment
+                upper_y_limit,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
