@@ -227,10 +227,11 @@ if data is not None and not data.empty:
 
     
     axes[0, 1].set_xlabel("ID")
-    axes[0, 1].set_ylabel("Pump1 Current [mA]")
+    axes[0, 1].set_ylabel("Pump1 Current [A]")
 
     # Adjust y-axis limits to ensure the numbers are closer
     axes[0, 1].set_ylim(0.7, 0.74)
+    axes.set_yticks([0.70, 0.71, 0.72, 0.73, 0.74])
 
 
     # Plot 4: ID vs Pump2Current with session-based colors
