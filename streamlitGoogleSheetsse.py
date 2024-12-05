@@ -180,7 +180,7 @@ if data is not None and not data.empty:
     
     # Adjust y-axis limits to ensure the numbers are closer
     axes[0, 0].set_ylim(20, 45)
-    axes[0, 1].set_yticks([20, 25, 30, 35, 40, 45])
+    axes[0, 0].set_yticks([20, 25, 30, 35, 40, 45])
 
 
     # Plot 2: ID vs SeedTemperature with session-based colors
@@ -193,7 +193,11 @@ if data is not None and not data.empty:
             color=color
         )
     axes[1, 0].set_xlabel("ID")
-    axes[1, 0].set_ylabel("Seed Temperature [°C]")
+    axes[1, 0].set_ylabel("Seed Temperature [°C]", fontweight='bold', fontsize='large')
+
+    # Adjust y-axis limits to ensure the numbers are closer
+    axes[1, 0].set_ylim(26, 28)
+    axes[1, 0].set_yticks([26.0, 26.5, 27.0, 27.5, 28.0])
 
 
     # Plot 3: ID vs Pump1Current with session-based colors
@@ -244,9 +248,7 @@ if data is not None and not data.empty:
     axes[1, 1].set_ylabel("Pump2 Current [mA]", fontweight='bold', fontsize='large')
 
     
-    # Adjust y-axis limits to ensure the numbers are closer
-    axes[0, 1].set_ylim(26, 28)
-    axes[0, 1].set_yticks([26.0, 26.5, 27.0, 27.5, 28.0])
+
     
 
     # Create a rectangle patch
