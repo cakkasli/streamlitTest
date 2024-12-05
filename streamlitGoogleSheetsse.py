@@ -202,7 +202,7 @@ if data is not None and not data.empty:
         session_data = data[data["SessionNumber"] == session]
         axes[0, 1].plot(
             session_data["ID"], 
-            session_data["Pump1Current"] * 0.001, 
+            session_data["Pump1Current"], 
             label=f"Session {session}", 
             color=color
         )
