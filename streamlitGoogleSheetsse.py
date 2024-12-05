@@ -251,10 +251,16 @@ if data is not None and not data.empty:
     box_x = 0.078  # Center the box horizontally
     box_y = 0.900  # Position the box near the top
     
-    rect = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
+    rect_left = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
+
+    box_x = 2 * 0.078  # Center the box horizontally
+    box_y = 2 * 0.900  # Position the box near the top
+
+    rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
+
     
     # Add the rectangle patch to the figure
-    fig.patches.append(rect)
+    fig.patches.append(rect_left)
 
     axes[0, 0].text(
     2800,  # Last ID in the session
