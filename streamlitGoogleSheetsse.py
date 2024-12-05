@@ -202,7 +202,7 @@ if data is not None and not data.empty:
         session_data = data[data["SessionNumber"] == session]
         axes[0, 1].plot(
             session_data["ID"], 
-            session_data["Pump1Current"] / 1000, 
+            session_data["Pump1Current"] * 0.001, 
             label=f"Session {session}", 
             color=color
         )
@@ -211,14 +211,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                8.09,  # Slightly above the y-axis limit for alignment
+                8.9,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                8.025,  # Slightly above the y-axis limit for alignment
+                8.25,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
