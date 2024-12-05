@@ -175,8 +175,6 @@ if data is not None and not data.empty:
                 ha='center', va='bottom'  # Bottom-align the text
             )
 
-    # Retrieve the y-axis limits
-    upper_y_limit = axes[0, 0].get_ylim()
     
     # Set axis labels
     axes[0, 0].set_xlabel("ID")
