@@ -177,7 +177,6 @@ if data is not None and not data.empty:
 
     
     # Set axis labels
-    axes[0, 0].set_xlabel("ID")
     axes[0, 0].set_ylabel("Module Temperature [°C]")
     
     # Adjust y-axis limits to ensure the numbers are closer
