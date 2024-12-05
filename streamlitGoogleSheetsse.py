@@ -258,9 +258,9 @@ if data is not None and not data.empty:
 
     rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
 
-    
     # Add the rectangle patch to the figure
     fig.patches.append(rect_left)
+    fig.patches.append(rect_right)
 
     axes[0, 0].text(
     2800,  # Last ID in the session
