@@ -145,6 +145,9 @@ if data is not None and not data.empty:
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
+    # Ensure the y-axis limits are set after all plotting is done
+    _, upper_y_limit = axes[0, 0].get_ylim()
+
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
@@ -155,8 +158,7 @@ if data is not None and not data.empty:
             color=color
         )
         
-        # Ensure the y-axis limits are set after all plotting is done
-        _, upper_y_limit = axes[0, 0].get_ylim()
+
 
         # Add text annotation for every 6th session with adjusted vertical position
         if session % 3 == 1:
