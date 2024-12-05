@@ -201,7 +201,7 @@ if data is not None and not data.empty:
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[0, 1].plot(
-            session_data["ID"] / 1000, 
+            session_data["ID"], 
             session_data["Pump1Current"], 
             label=f"Session {session}", 
             color=color
@@ -211,14 +211,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                0,  # Slightly above the y-axis limit for alignment
+                800,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                0,  # Slightly above the y-axis limit for alignment
+                800,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
@@ -230,7 +230,7 @@ if data is not None and not data.empty:
     axes[0, 1].set_ylabel("Pump1 Current [mA]")
 
     # Adjust y-axis limits to ensure the numbers are closer
-    axes[0, 1].set_ylim(0.70, 0.74)
+    axes[0, 1].set_ylim(600, 800)
 
 
     # Plot 4: ID vs Pump2Current with session-based colors
