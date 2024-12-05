@@ -210,14 +210,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                813.0,  # Slightly above the y-axis limit for alignment
+                810.0,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                811.5,  # Slightly above the y-axis limit for alignment
+                808.5,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
