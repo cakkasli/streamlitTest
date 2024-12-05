@@ -225,9 +225,7 @@ if data is not None and not data.empty:
             )
   
 
-    
-    axes[0, 1].set_xlabel("ID")
-    axes[0, 1].set_ylabel("Pump1 Current [A]")
+    axes[0, 1].set_ylabel("Pump1 Current [A]", fontweight='bold', fontsize='large')
 
     # Adjust y-axis limits to ensure the numbers are closer
     axes[0, 1].set_ylim(0.7, 0.74)
