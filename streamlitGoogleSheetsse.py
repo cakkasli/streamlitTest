@@ -241,13 +241,18 @@ if data is not None and not data.empty:
             color=color
         )
     axes[1, 1].set_xlabel("ID")
-    axes[1, 1].set_ylabel("Pump2 Current [mA]")
+    axes[1, 1].set_ylabel("Pump2 Current [mA]", fontweight='bold', fontsize='large')
 
+    
+    # Adjust y-axis limits to ensure the numbers are closer
+    axes[0, 1].set_ylim(26, 28)
+    axes[0, 1].set_yticks([26.0, 26.5, 27.0, 27.5, 28.0])
+    
 
     # Create a rectangle patch
     box_width = 0.41  # 80% of the figure width
     box_height = 0.040  # Height in figure coordinate system
-    
+
     box_x = 0.078  # Center the box horizontally
     box_y = 0.900  # Position the box near the top
     
