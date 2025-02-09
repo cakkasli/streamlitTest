@@ -5,6 +5,7 @@ import hmac
 import numpy as np  # Ensure you import numpy for colors
 import time
 import matplotlib.patches as patches
+import matplotlib.ticker as ticker
 
 
 # Initialize session state keys
@@ -71,15 +72,32 @@ st.set_page_config(layout="wide")
 
 # Google Sheets URL
 
-#url = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
+# Define the URLs
+url1 = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
+url2 = "https://docs.google.com/spreadsheets/d/1nmOQO6fJ-r1FKtkBh7hnTXyWrvn0yAWE0I80xLuXdfE/edit?usp=sharing"
 
-url = "https://docs.google.com/spreadsheets/d/1nmOQO6fJ-r1FKtkBh7hnTXyWrvn0yAWE0I80xLuXdfE/edit?usp=sharing"
+# Create a dropdown list to select a URL
+url_options = {
+    "URL 1": url1,
+    "URL 2": url2
+}
+
+selected_url_key = st.selectbox("Select a URL", options=list(url_options.keys()))
+
+# Button to open the selected URL
+if st.button("Open URL"):
+    selected_url = url_options[selected_url_key]
+    st.write(f"Opening URL: [Click here]({selected_url})")
+
+
+# Set the selected URL based on the dropdown selection
+selected_url = url_options[selected_url_key]
 
 # Connect to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Fetch data from Google Sheets
-data = conn.read(spreadsheet=url, usecols=list(range(0, 15)))
+data = conn.read(spreadsheet=selected_url, usecols=list(range(0, 15)))
 
 # Check if data is available
 if data is not None and not data.empty:
@@ -93,7 +111,7 @@ if data is not None and not data.empty:
 
     
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
-    serial_number = data["SerialNumber"].iloc[0]  # Or use `unique()` if there are multiple
+    serial_number = int(data["SerialNumber"].iloc[0])  # Convert to integer
 
     # Use columns to layout the title and the rotating icon side by side
     col_title, col_icon = st.columns([8, 1])  # Adjust proportions as needed
@@ -109,7 +127,6 @@ if data is not None and not data.empty:
             unsafe_allow_html=True,
         )
     
-    # Rotating icon in the second column
 
     # Rotating icon in the second column
     with col_icon:
@@ -122,18 +139,18 @@ if data is not None and not data.empty:
                 }
                 .rotating-icon {
                     animation: spin 5s linear infinite; /* Rotate every 5 seconds */
-                    transform-origin: 50px 50%; /* Adjust rotation origin */
+                    transform-origin: center center; /* Rotate around the center */
                     display: inline-block;
                 }
             </style>
             <div class="rotating-icon">
                 <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
-                     alt="NORBLIS Logo" width="40">
+                     alt="NORBLIS Logo" width="50">
             </div>
             """,
             unsafe_allow_html=True,
         )
-
+    
 
 
     # Add space between the title and the plot
@@ -164,14 +181,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                42.8,  # Slightly above the y-axis limit for alignment
+                47.2,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 0].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                41.5,  # Slightly above the y-axis limit for alignment
+                46.0,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
@@ -217,14 +234,14 @@ if data is not None and not data.empty:
         if session % 3 == 1:
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                0.4,  # Slightly above the y-axis limit for alignment
+                0.7435,  # Slightly above the y-axis limit for alignment
                 str(session), 
                 fontsize=10, fontweight='bold', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
             )
             axes[0, 1].text(
                 session_data["ID"].iloc[-1],  # Last ID in the session
-                0.4,  # Slightly above the y-axis limit for alignment
+                0.7415,  # Slightly above the y-axis limit for alignment
                 "ı", 
                 fontsize=10, fontweight='normal', color='black',
                 ha='center', va='bottom'  # Bottom-align the text
@@ -236,29 +253,30 @@ if data is not None and not data.empty:
     # Adjust y-axis limits to ensure the numbers are closer
     axes[0, 1].set_ylim(0.7, 0.74)
     axes[0, 1].set_yticks([0.70, 0.71, 0.72, 0.73, 0.74])
-
+    axes[1, 1].yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:.2f}'))
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
         session_data = data[data["SessionNumber"] == session]
         axes[1, 1].plot(
             session_data["ID"], 
-            session_data["Pump2Current"], 
+            session_data["Pump2Current"] / 1000, 
             label=f"Session {session}", 
             color=color
         )
     axes[1, 1].set_xlabel("ID")
-    axes[1, 1].set_ylabel("Pump2 Current [mA]", fontweight='bold', fontsize='large')
+    axes[1, 1].set_ylabel("Pump2 Current [A]", fontweight='bold', fontsize='large')
 
-    
-
+    axes[1, 1].set_yticks([2.0, 4.0, 6.0, 8.0, 10.0])
+    # Format the y-axis ticks to show one decimal place
+    axes[1, 1].yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:.1f}'))
     
 
     # Create a rectangle patch
     box_width = 0.41  # 80% of the figure width
     box_height = 0.040  # Height in figure coordinate system
 
-    box_x = 0.078  # Center the box horizontally
+    box_x = 0.075  # Center the box horizontally
     box_y = 0.900  # Position the box near the top
     
     rect_left = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
@@ -272,12 +290,35 @@ if data is not None and not data.empty:
     #fig.patches.append(rect_right)
 
     axes[0, 0].text(
-    2800,  # Last ID in the session
-    46,  # Slightly above the y-axis limit for alignment
+    3650,  # Last ID in the session
+    49.5,  # Slightly above the y-axis limit for alignment
     "Session Number", 
     fontsize=11, fontweight='bold', color='black',
     ha='center', va='bottom'  # Bottom-align the text
     )
+    
+    
+    # Create a rectangle patch
+    box_width = 0.41  # 80% of the figure width
+    box_height = 0.040  # Height in figure coordinate system
+
+    box_x = 0.568  # Center the box horizontally
+    box_y = 0.900  # Position the box near the top
+    
+    rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
+
+    # Add the rectangle patch to the figure
+    fig.patches.append(rect_right)
+    
+    axes[0, 1].text(
+    3650,  # Last ID in the session
+    0.747,  # Slightly above the y-axis limit for alignment
+    "Session Number", 
+    fontsize=11, fontweight='bold', color='black',
+    ha='center', va='bottom'  # Bottom-align the text
+    )
+
+
 
     # Adjust layout for better spacing
     fig.tight_layout(pad=2.0)  # Add padding between subplots
@@ -323,3 +364,8 @@ if data is not None and not data.empty:
             st.warning("No data available to download.")
 else:
     st.warning("No data available to plot.")
+
+
+
+
+
