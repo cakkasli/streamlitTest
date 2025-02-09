@@ -323,8 +323,3 @@ if data is not None and not data.empty:
             st.warning("No data available to download.")
 else:
     st.warning("No data available to plot.")
-
-
-
-
-
