@@ -7,6 +7,37 @@ import time
 import matplotlib.patches as patches
 import matplotlib.ticker as ticker
 
+# Set the Streamlit page layout to wide (must be the first command)
+st.set_page_config(layout="wide")
+
+# Set background color to black and text color to white using custom CSS
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: black;
+            color: white;  /* Ensure text is visible on the black background */
+        }
+        .block-container {
+            background-color: black;  /* Apply black background to container as well */
+            color: white;
+        }
+        .stButton>button {
+            background-color: #3e8e41;  /* Green button color */
+            color: white;  /* Button text color */
+        }
+        .stSelectbox, .stTextInput, .stTextArea {
+            background-color: #333333;  /* Dark background for input boxes */
+            color: white;  /* White text in input boxes */
+        }
+        .stMarkdown, .stTitle, .stHeader, .stSubheader {
+            color: white;  /* Set text color to white for headers and markdown */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
@@ -64,28 +95,6 @@ def check_password():
 
 if not check_password():
     st.stop()
-
-
-
-
-# Set the Streamlit page layout to wide (must be the first command)
-st.set_page_config(layout="wide")
-
-# Set background color to black and text color to white using custom CSS
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: black;
-            color: white;  /* Ensure text is visible on the black background */
-        }
-        .block-container {
-            padding-top: 1rem; /* Remove the extra space around the app */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 
 # Google Sheets URL
