@@ -7,6 +7,17 @@ import time
 import matplotlib.patches as patches
 import matplotlib.ticker as ticker
 
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: black;
+            color: white;  /* Ensure text is visible on the black background */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
@@ -67,17 +78,7 @@ if not check_password():
     st.stop()
 
 
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: black;
-            color: white;  /* Ensure text is visible on the black background */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 
 
 # Set the Streamlit page layout to wide
