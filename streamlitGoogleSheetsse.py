@@ -113,8 +113,8 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    # Add the text with reduced spacing
-    st.markdown(
+# Add the text with reduced spacing
+st.markdown(
         "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
         unsafe_allow_html=True
     )
