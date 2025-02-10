@@ -67,6 +67,19 @@ if not check_password():
     st.stop()
 
 
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: black;
+            color: white;  /* Ensure text is visible on the black background */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # Set the Streamlit page layout to wide
 st.set_page_config(layout="wide")
 
