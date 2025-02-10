@@ -62,7 +62,6 @@ def check_password():
     return False
 
 
-
 if not check_password():
     st.stop()
 
@@ -120,8 +119,6 @@ if data is not None and not data.empty:
                     "ModuleTemperature", "SeedTemperature", "PumpCurrent", 
                     "Pump1Current", "Pump2Current", "OutputPower", "PumpPower"]
 
-
-    
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     serial_number = int(data["SerialNumber"].iloc[0])  # Convert to integer
 
@@ -162,8 +159,6 @@ if data is not None and not data.empty:
             """,
             unsafe_allow_html=True,
         )
-    
-
 
     # Add space between the title and the plot
     st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
@@ -173,9 +168,41 @@ if data is not None and not data.empty:
     session_numbers = data["SessionNumber"].unique()
     colors = plt.cm.rainbow(np.linspace(0, 1, len(session_numbers)))
 
-    
     # Create a 2x2 grid of plots
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
+
+    # Add sliders for zooming in/out for each plot
+    module_temp_zoom = st.slider(
+        "Zoom in/out Module Temperature",
+        min_value=20,
+        max_value=45,
+        value=(20, 45),
+        step=0.1
+    )
+    
+    seed_temp_zoom = st.slider(
+        "Zoom in/out Seed Temperature",
+        min_value=26.0,
+        max_value=28.0,
+        value=(26.0, 28.0),
+        step=0.1
+    )
+    
+    pump1_current_zoom = st.slider(
+        "Zoom in/out Pump1 Current",
+        min_value=0.70,
+        max_value=0.74,
+        value=(0.70, 0.74),
+        step=0.001
+    )
+    
+    pump2_current_zoom = st.slider(
+        "Zoom in/out Pump2 Current",
+        min_value=2.0,
+        max_value=10.0,
+        value=(2.0, 10.0),
+        step=0.1
+    )
 
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
@@ -210,10 +237,9 @@ if data is not None and not data.empty:
     # Set axis labels
     axes[0, 0].set_ylabel("Module Temperature [°C]", fontweight='bold', fontsize='large')
     
-    # Adjust y-axis limits to ensure the numbers are closer
-    axes[0, 0].set_ylim(20, 45)
-    axes[0, 0].set_yticks([20, 25, 30, 35, 40, 45])
-
+    # Update y-axis limits based on slider values
+    axes[0, 0].set_ylim(module_temp_zoom)
+    axes[0, 0].set_yticks(np.arange(module_temp_zoom[0], module_temp_zoom[1], 1))
 
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -227,10 +253,9 @@ if data is not None and not data.empty:
     axes[1, 0].set_xlabel("ID")
     axes[1, 0].set_ylabel("Seed Temperature [°C]", fontweight='bold', fontsize='large')
 
-    # Adjust y-axis limits to ensure the numbers are closer
-    axes[1, 0].set_ylim(26, 28)
-    axes[1, 0].set_yticks([26.0, 26.5, 27.0, 27.5, 28.0])
-
+    # Update y-axis limits based on slider values
+    axes[1, 0].set_ylim(seed_temp_zoom)
+    axes[1, 0].set_yticks(np.arange(seed_temp_zoom[0], seed_temp_zoom[1], 0.1))
 
     # Plot 3: ID vs Pump1Current with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -242,30 +267,11 @@ if data is not None and not data.empty:
             color=color
         )
         
-        # Add text annotation for every 6th session with adjusted vertical position
-        if session % 3 == 1:
-            axes[0, 1].text(
-                session_data["ID"].iloc[-1],  # Last ID in the session
-                0.7435,  # Slightly above the y-axis limit for alignment
-                str(session), 
-                fontsize=10, fontweight='bold', color='black',
-                ha='center', va='bottom'  # Bottom-align the text
-            )
-            axes[0, 1].text(
-                session_data["ID"].iloc[-1],  # Last ID in the session
-                0.7415,  # Slightly above the y-axis limit for alignment
-                "ı", 
-                fontsize=10, fontweight='normal', color='black',
-                ha='center', va='bottom'  # Bottom-align the text
-            )
-  
-
     axes[0, 1].set_ylabel("Pump1 Current [A]", fontweight='bold', fontsize='large')
 
-    # Adjust y-axis limits to ensure the numbers are closer
-    axes[0, 1].set_ylim(0.7, 0.74)
-    axes[0, 1].set_yticks([0.70, 0.71, 0.72, 0.73, 0.74])
-    axes[1, 1].yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:.2f}'))
+    # Update y-axis limits based on slider values
+    axes[0, 1].set_ylim(pump1_current_zoom)
+    axes[0, 1].set_yticks(np.arange(pump1_current_zoom[0], pump1_current_zoom[1], 0.001))
 
     # Plot 4: ID vs Pump2Current with session-based colors
     for session, color in zip(session_numbers, colors):
@@ -279,57 +285,9 @@ if data is not None and not data.empty:
     axes[1, 1].set_xlabel("ID")
     axes[1, 1].set_ylabel("Pump2 Current [A]", fontweight='bold', fontsize='large')
 
-    axes[1, 1].set_yticks([2.0, 4.0, 6.0, 8.0, 10.0])
-    # Format the y-axis ticks to show one decimal place
-    axes[1, 1].yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:.1f}'))
-    
-
-    # Create a rectangle patch
-    box_width = 0.41  # 80% of the figure width
-    box_height = 0.040  # Height in figure coordinate system
-
-    box_x = 0.075  # Center the box horizontally
-    box_y = 0.900  # Position the box near the top
-    
-    rect_left = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
-
-    #box_x = 0.568  # Center the box horizontally
-    
-    #rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
-
-    # Add the rectangle patch to the figure
-    fig.patches.append(rect_left)
-    #fig.patches.append(rect_right)
-
-    axes[0, 0].text(
-    3650,  # Last ID in the session
-    49.5,  # Slightly above the y-axis limit for alignment
-    "Session Number", 
-    fontsize=11, fontweight='bold', color='black',
-    ha='center', va='bottom'  # Bottom-align the text
-    )
-    
-    
-    # Create a rectangle patch
-    box_width = 0.41  # 80% of the figure width
-    box_height = 0.040  # Height in figure coordinate system
-
-    box_x = 0.568  # Center the box horizontally
-    box_y = 0.900  # Position the box near the top
-    
-    rect_right = patches.Rectangle((box_x, box_y), box_width, box_height, linewidth=1, edgecolor='black', facecolor='white', alpha=0.5, transform=fig.transFigure)
-
-    # Add the rectangle patch to the figure
-    fig.patches.append(rect_right)
-    
-    axes[0, 1].text(
-    3650,  # Last ID in the session
-    0.747,  # Slightly above the y-axis limit for alignment
-    "Session Number", 
-    fontsize=11, fontweight='bold', color='black',
-    ha='center', va='bottom'  # Bottom-align the text
-    )
-
+    # Update y-axis limits based on slider values
+    axes[1, 1].set_ylim(pump2_current_zoom)
+    axes[1, 1].set_yticks(np.arange(pump2_current_zoom[0], pump2_current_zoom[1], 1))
 
     # Adjust layout for better spacing
     fig.tight_layout(pad=2.0)  # Add padding between subplots
