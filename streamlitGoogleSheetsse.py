@@ -82,24 +82,18 @@ url_options = {
     "202203061": url_202203061
 }
 
-# Add custom CSS to make the dropdown options bold
+# Add custom CSS for making the options bold in the dropdown
 st.markdown(
     """
     <style>
-    .streamlit-expanderHeader {
-        font-weight: bold;
-        color: #264D99;
-    }
-    .stSelectbox div[role="listbox"] div {
-        font-weight: bold;
-        color: #264D99;
-    }
+        .css-1q8dd3e {
+            font-weight: bold;
+        }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Create the selectbox
 with st.sidebar:
     st.markdown(
         "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
