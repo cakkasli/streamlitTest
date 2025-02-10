@@ -10,20 +10,6 @@ import matplotlib.ticker as ticker
 # Set the Streamlit page layout to wide (must be the first command)
 st.set_page_config(layout="wide")
 
-# Set background color to black and text color to white using custom CSS
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: black;
-            color: white;  /* Ensure text is visible on the black background */
-        }
-
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
