@@ -85,7 +85,7 @@ url_options = {
 # Move both the text and the dropdown into the same sidebar container with minimal space
 with st.sidebar:
     st.markdown(
-        "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
+        "<div style='font-weight: bold; color: #264D99; margin-top: 0;'>Select a LASER Source</div>",
         unsafe_allow_html=True
     )
     selected_url_key = st.selectbox("", options=list(url_options.keys()))
