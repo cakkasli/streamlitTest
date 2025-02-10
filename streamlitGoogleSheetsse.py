@@ -88,7 +88,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 # Move dropdown to the sidebar
-selected_url_key = st.sidebar.selectbox("Select a LASER Source", options=list(url_options.keys()))
+selected_url_key = st.sidebar.selectbox("", options=list(url_options.keys()))
 
 # # Button to open the selected URL in the sidebar
 # if st.sidebar.button("Open URL"):
