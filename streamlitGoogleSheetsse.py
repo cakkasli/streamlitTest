@@ -96,31 +96,15 @@ st.markdown(
 )
 
 with st.sidebar:
-    # Add custom CSS to reduce spacing
     st.markdown(
-        """
-        <style>
-            /* Reduce margin below the text */
-            .stMarkdown p {
-                margin-bottom: 0.2rem !important;
-            }
-            /* Reduce margin above the dropdown */
-            .stSelectbox > div {
-                margin-top: 0.2rem !important;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-# Add the text with reduced spacing
-st.markdown(
         "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
         unsafe_allow_html=True
     )
+    selected_url_key = st.selectbox("", options=list(url_options.keys()))
 
-# Add the dropdown menu
-selected_url_key = st.selectbox("", options=list(url_options.keys()))
+
+# Set the selected URL based on the dropdown selection
+selected_url = url_options[selected_url_key]
 
 # Connect to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -392,8 +376,3 @@ if data is not None and not data.empty:
             st.warning("No data available to download.")
 else:
     st.warning("No data available to plot.")
-
-
-
-
-
