@@ -68,11 +68,10 @@ if not check_password():
 
 
 
-
-# Set the Streamlit page layout to wide
+# Set the Streamlit page layout to wide (must be the first command)
 st.set_page_config(layout="wide")
 
-# Set background color to black and text color to white
+# Set background color to black and text color to white using custom CSS
 st.markdown(
     """
     <style>
@@ -80,10 +79,14 @@ st.markdown(
             background-color: black;
             color: white;  /* Ensure text is visible on the black background */
         }
+        .block-container {
+            padding-top: 1rem; /* Remove the extra space around the app */
+        }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # Google Sheets URL
 
