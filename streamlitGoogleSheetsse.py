@@ -99,7 +99,7 @@ with st.sidebar:
         "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
         unsafe_allow_html=True
     )
-    selected_url_key = st.selectbox("", options=list(url_options.keys()))
+selected_url_key = st.selectbox("", options=list(url_options.keys()))
 
 
 # Set the selected URL based on the dropdown selection
