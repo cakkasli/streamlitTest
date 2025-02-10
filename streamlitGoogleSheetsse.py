@@ -18,20 +18,7 @@ st.markdown(
             background-color: black;
             color: white;  /* Ensure text is visible on the black background */
         }
-        .block-container {
-            background-color: black;  /* Apply black background to container as well */
-            color: white;
-        }
-        .stButton>button {
-            background-color: #3e8e41;  /* Green button color */
-            color: white;  /* Button text color */
-        }
-        .stSelectbox, .stTextInput, .stTextArea {
-            background-color: #333333;  /* Dark background for input boxes */
-            color: white;  /* White text in input boxes */
-        }
-        .stMarkdown, .stTitle, .stHeader, .stSubheader {
-            color: white;  /* Set text color to white for headers and markdown */
+
         }
     </style>
     """,
