@@ -172,11 +172,12 @@ if data is not None and not data.empty:
     fig, axes = plt.subplots(2, 2, figsize=(12, 8))  # 2 rows, 2 columns
 
     # Add sliders for zooming in/out for each plot
+    # Add sliders for zooming in/out for each plot
     module_temp_zoom = st.slider(
         "Zoom in/out Module Temperature",
-        min_value=20,
-        max_value=45,
-        value=(20, 45),
+        min_value=20.0,
+        max_value=45.0,
+        value=(20.0, 45.0),  # Initial range
         step=0.1
     )
     
@@ -203,6 +204,7 @@ if data is not None and not data.empty:
         value=(2.0, 10.0),
         step=0.1
     )
+
 
     # Plot 1: ID vs ModuleTemperature with session-based colors    
     for session, color in zip(session_numbers, colors):
