@@ -214,6 +214,14 @@ if data is not None and not data.empty:
     axes[0, 0].set_ylim(20, 45)
     axes[0, 0].set_yticks([20, 25, 30, 35, 40, 45])
 
+    module_temp_zoom = st.slider(
+    "Zoom in/out Module Temperature",
+    min_value=20,
+    max_value=45,
+    value=(20, 45),
+    step=0.1
+    )
+
 
     # Plot 2: ID vs SeedTemperature with session-based colors
     for session, color in zip(session_numbers, colors):
