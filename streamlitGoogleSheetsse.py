@@ -73,23 +73,23 @@ st.set_page_config(layout="wide")
 # Google Sheets URL
 
 # Define the URLs
-url1 = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
-url2 = "https://docs.google.com/spreadsheets/d/1XVxYCNIWTqMNbdV9waWJSm-ee19CY7LVDd1oSIAMXlk/edit?usp=sharing"
-#
+url_202203060 = "https://docs.google.com/spreadsheets/d/1acXABDP5REh7SyUuICntxdGzZ0QtD_YPyShohRJGJZU/edit?usp=sharing"
+url_202203061 = "https://docs.google.com/spreadsheets/d/1XVxYCNIWTqMNbdV9waWJSm-ee19CY7LVDd1oSIAMXlk/edit?usp=sharing"
 
-# Create a dropdown list to select a URL
+# Create a dropdown list in the sidebar to select a URL
 url_options = {
-    "URL 1": url1,
-    "URL 2": url2
+    "202203060": url_202203060,
+    "202203061": url_202203061
 }
 
-selected_url_key = st.selectbox("Select a URL", options=list(url_options.keys()))
 
-# Button to open the selected URL
-if st.button("Open URL"):
-    selected_url = url_options[selected_url_key]
-    st.write(f"Opening URL: [Click here]({selected_url})")
+# Move dropdown to the sidebar
+selected_url_key = st.sidebar.selectbox("Select a LASER Source", options=list(url_options.keys()))
 
+# # Button to open the selected URL in the sidebar
+# if st.sidebar.button("Open URL"):
+#     selected_url = url_options[selected_url_key]
+#     st.write(f"Opening URL: [Click here]({selected_url})")
 
 # Set the selected URL based on the dropdown selection
 selected_url = url_options[selected_url_key]
