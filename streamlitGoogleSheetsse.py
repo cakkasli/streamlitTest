@@ -82,13 +82,13 @@ url_options = {
     "202203061": url_202203061
 }
 
-# Move dropdown to the sidebar
-st.sidebar.markdown(
-    "<span style='font-weight: bold; color: #264D99;'>Select a LASER Source</span>",
-    unsafe_allow_html=True
-)
-# Move dropdown to the sidebar
-selected_url_key = st.sidebar.selectbox("", options=list(url_options.keys()))
+# Move both the text and the dropdown into the same sidebar container
+with st.sidebar:
+    st.markdown(
+        "<span style='font-weight: bold; color: #264D99;'>Select a LASER Source</span>",
+        unsafe_allow_html=True
+    )
+    selected_url_key = st.selectbox("", options=list(url_options.keys()))
 
 # # Button to open the selected URL in the sidebar
 # if st.sidebar.button("Open URL"):
