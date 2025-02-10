@@ -119,8 +119,8 @@ with st.sidebar:
         unsafe_allow_html=True
     )
 
-    # Add the dropdown menu
-    selected_url_key = st.selectbox("", options=list(url_options.keys()))
+# Add the dropdown menu
+selected_url_key = st.selectbox("", options=list(url_options.keys()))
 
 # Connect to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
