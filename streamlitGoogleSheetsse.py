@@ -157,7 +157,7 @@ if data is not None and not data.empty:
             </style>
             <div class="rotating-icon">
                 <img src="https://raw.githubusercontent.com/cakkasli/streamlitTest/refs/heads/main/NORBLIS_LOGO.ico" 
-                     alt="NORBLIS Logo" width="70">
+                     alt="NORBLIS Logo" width="64">
             </div>
             """,
             unsafe_allow_html=True,
