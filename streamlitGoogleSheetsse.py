@@ -82,19 +82,31 @@ url_options = {
     "202203061": url_202203061
 }
 
-# Move both the text and the dropdown into the same sidebar container with minimal space
+# Add custom CSS to make the dropdown options bold
+st.markdown(
+    """
+    <style>
+    .streamlit-expanderHeader {
+        font-weight: bold;
+        color: #264D99;
+    }
+    .stSelectbox div[role="listbox"] div {
+        font-weight: bold;
+        color: #264D99;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Create the selectbox
 with st.sidebar:
     st.markdown(
-        "<div style='font-weight: bold; color: #264D99; margin-top: 0;'>Select a LASER Source</div>",
+        "<div style='font-weight: bold; color: #264D99; margin-bottom: 0;'>Select a LASER Source</div>",
         unsafe_allow_html=True
     )
     selected_url_key = st.selectbox("", options=list(url_options.keys()))
 
-
-# # Button to open the selected URL in the sidebar
-# if st.sidebar.button("Open URL"):
-#     selected_url = url_options[selected_url_key]
-#     st.write(f"Opening URL: [Click here]({selected_url})")
 
 # Set the selected URL based on the dropdown selection
 selected_url = url_options[selected_url_key]
