@@ -122,6 +122,45 @@ if data is not None and not data.empty:
 
 
 
+    # Add sliders for zooming in/out for each plot
+    module_temp_zoom = st.slider(
+        "Zoom in/out Module Temperature",
+        min_value=20,
+        max_value=45,
+        value=(20, 45),
+        step=0.1
+    )
+    
+    seed_temp_zoom = st.slider(
+        "Zoom in/out Seed Temperature",
+        min_value=26.0,
+        max_value=28.0,
+        value=(26.0, 28.0),
+        step=0.1
+    )
+    
+    pump1_current_zoom = st.slider(
+        "Zoom in/out Pump1 Current",
+        min_value=0.70,
+        max_value=0.74,
+        value=(0.70, 0.74),
+        step=0.001
+    )
+    
+    pump2_current_zoom = st.slider(
+        "Zoom in/out Pump2 Current",
+        min_value=2.0,
+        max_value=10.0,
+        value=(2.0, 10.0),
+        step=0.1
+    )
+    
+    # Update the plots with the zoomed y-axis ranges
+    axes[0, 0].set_ylim(module_temp_zoom)  # Module Temperature
+    axes[1, 0].set_ylim(seed_temp_zoom)  # Seed Temperature
+    axes[0, 1].set_ylim(pump1_current_zoom)  # Pump1 Current
+    axes[1, 1].set_ylim(pump2_current_zoom)  # Pump2 Current
+
     
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
     serial_number = int(data["SerialNumber"].iloc[0])  # Convert to integer
