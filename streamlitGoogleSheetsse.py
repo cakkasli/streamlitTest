@@ -86,8 +86,9 @@ url_options = {
 st.markdown(
     """
     <style>
-        .css-1q8dd3e {
-            font-weight: bold;
+        /* Target the dropdown options */
+        .stSelectbox div[data-baseweb="select"] div {
+            font-weight: bold !important;
         }
     </style>
     """,
