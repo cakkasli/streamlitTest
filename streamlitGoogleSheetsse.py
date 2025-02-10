@@ -155,11 +155,7 @@ if data is not None and not data.empty:
         step=0.1
     )
     
-    # Update the plots with the zoomed y-axis ranges
-    axes[0, 0].set_ylim(module_temp_zoom)  # Module Temperature
-    axes[1, 0].set_ylim(seed_temp_zoom)  # Seed Temperature
-    axes[0, 1].set_ylim(pump1_current_zoom)  # Pump1 Current
-    axes[1, 1].set_ylim(pump2_current_zoom)  # Pump2 Current
+
 
     
     # Extract SerialNumber (assuming you want to use the first unique SerialNumber)
