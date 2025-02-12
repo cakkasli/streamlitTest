@@ -7,9 +7,6 @@ import time
 import matplotlib.patches as patches
 import matplotlib.ticker as ticker
 
-# Set the Streamlit page layout to wide (must be the first command)
-st.set_page_config(layout="wide")
-
 
 # Initialize session state keys
 if "password_correct" not in st.session_state:
@@ -69,6 +66,9 @@ def check_password():
 if not check_password():
     st.stop()
 
+
+# Set the Streamlit page layout to wide (must be the first command)
+st.set_page_config(layout="wide")
 
 # Google Sheets URL
 
