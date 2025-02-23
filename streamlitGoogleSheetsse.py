@@ -10,7 +10,6 @@ import matplotlib.ticker as ticker
 st.cache_data()
 
 
-
 # Initialize session state keys
 if "password_correct" not in st.session_state:
     st.session_state["password_correct"] = False
