@@ -7,7 +7,7 @@ import time
 import matplotlib.patches as patches
 import matplotlib.ticker as ticker
 
-st.cache_data()
+#st.cache_data()
 
 
 # Initialize session state keys
@@ -95,6 +95,9 @@ selected_url = url_options[selected_url_key]
 
 # Connect to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
+
+# Clear the cache before fetching new data
+st.cache_data.clear()
 
 # Fetch data from Google Sheets
 data = conn.read(spreadsheet=selected_url, usecols=list(range(0, 15)))
