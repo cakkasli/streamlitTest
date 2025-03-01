@@ -78,9 +78,7 @@ st.set_page_config(layout="wide")
 #url_202203061 = "https://docs.google.com/spreadsheets/d/1XVxYCNIWTqMNbdV9waWJSm-ee19CY7LVDd1oSIAMXlk/edit?usp=sharing"
 url_202311117 = "https://docs.google.com/spreadsheets/d/1zNN-bHdiQNPuNBKC1pRslH-gnyAt-OyG--zetovBW9g/edit?usp=sharing"
 url_202203060 = "https://docs.google.com/spreadsheets/d/1ne248c3eLVqmZta4-DcRSQE3blWMELj1ZUEEPKAuZRM/edit?usp=sharing"
-#url_202212092 = "https://docs.google.com/spreadsheets/d/1JfBPwXXTxIb4Y1BhgEX_jd3_0ZTudnZ0V3vErsUl_DI/edit?usp=sharing"
-
-url_202212092 = "https://docs.google.com/spreadsheets/d/1swJlu-DZ2X9ApTLiABVTsqedw9j_9dLsxKCRn9zdO18/edit?gid=979643863#gid=979643863"
+url_202212092 = "https://docs.google.com/spreadsheets/d/1JfBPwXXTxIb4Y1BhgEX_jd3_0ZTudnZ0V3vErsUl_DI/edit?usp=sharing"
 
 # Create a dropdown list in the sidebar to select a URL
 url_options = {
